@@ -1,0 +1,27 @@
+---
+/**
+ * The paper shell every page is printed on. Content goes in the slot.
+ * Even indices are left-hand pages (verso), odd are right-hand (recto).
+ */
+interface Props {
+  index: number;
+  kind: string;
+  anchor?: string;
+  label?: string;
+}
+
+const { index, kind, anchor, label } = Astro.props;
+const side = index % 2 === 0 ? "verso" : "recto";
+---
+
+<article
+  class:list={["page", `page--${kind}`, `page--${side}`]}
+  data-page-index={index}
+  data-anchor={anchor}
+  aria-label={label ?? (index === 0 ? "Inside cover" : `Page ${index}`)}
+>
+  <div class="page__inner">
+    <slot />
+  </div>
+  {index > 0 && <span class="page__number" aria-hidden="true">{index}</span>}
+</article>

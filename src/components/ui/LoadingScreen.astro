@@ -1,0 +1,14 @@
+---
+import { siteConfig } from "../../config/site.config";
+const { labels, owner } = siteConfig;
+---
+
+<div class="loader" data-loader role="status" aria-label="Loading">
+  <svg class="loader__book" viewBox="0 0 120 80" aria-hidden="true">
+    <path class="loader__line" d="M60 18 C46 10 26 8 10 12 V68 C26 64 46 66 60 74 C74 66 94 64 110 68 V12 C94 8 74 10 60 18 Z" />
+    <path class="loader__line loader__line--2" d="M60 18 V74" />
+    <path class="loader__line loader__line--3" d="M20 26 C30 24 42 25 50 29 M20 36 C30 34 42 35 50 39 M70 29 C78 25 90 24 100 26 M70 39 C78 35 90 34 100 36" />
+  </svg>
+  <p class="loader__name">{owner.name}</p>
+  <p class="loader__label">{labels.loading}</p>
+</div>

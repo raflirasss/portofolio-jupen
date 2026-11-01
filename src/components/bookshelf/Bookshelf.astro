@@ -1,0 +1,91 @@
+---
+import { siteConfig } from "../../config/site.config";
+import BookItem from "./BookItem.astro";
+import DecorBookItem from "./DecorBookItem.astro";
+import ShelfDecoration from "./ShelfDecoration.astro";
+import CvButton from "../ui/CvButton.astro";
+
+const { owner, books, decorBooks, features, labels } = siteConfig;
+const decor = (side: "left" | "right") => decorBooks.filter((d) => d.side === side);
+const year = new Date().getFullYear();
+---
+
+<section class="scene" id="shelf-scene" aria-label="Bookshelf">
+  <div class="scene__camera" data-camera>
+    <header class="scene__header" data-shelf-header>
+      <p class="scene__eyebrow hand" data-reveal>the collected works of</p>
+      <h1 class="scene__title" data-reveal>{owner.name}</h1>
+      <p class="scene__role" data-reveal>
+        <span class="scene__rule" aria-hidden="true"></span>
+        {owner.role}
+        <span class="scene__rule" aria-hidden="true"></span>
+      </p>
+      <p class="scene__tagline" data-reveal>{owner.tagline}</p>
+      <div class="scene__cta" data-reveal><CvButton /></div>
+    </header>
+
+    <div class="scene__stage">
+      {
+        features.shelfDecorations && (
+          <>
+            <ShelfDecoration type="stars" class="wall-deco wall-deco--stars" />
+            <ShelfDecoration type="frame" class="wall-deco wall-deco--frame" />
+            <ShelfDecoration type="note" class="wall-deco wall-deco--note" />
+          </>
+        )
+      }
+
+      <div class="shelf" data-shelf>
+        <p class="scene__hint" data-hint>
+          <span class="hand">{labels.shelfHint}</span>
+          <svg viewBox="0 0 80 50" class="scene__hint-arrow" aria-hidden="true">
+            <path d="M6 8 C 28 4, 52 14, 62 38" fill="none" />
+            <path d="M50 34 L62 40 L66 27" fill="none" />
+          </svg>
+        </p>
+        <div class="shelf__row">
+          {
+            features.shelfDecorations && (
+              <div class="shelf__side shelf__side--left">
+                <ShelfDecoration type="plant" class="shelf-deco shelf-deco--plant" />
+                <ShelfDecoration type="stack" class="shelf-deco shelf-deco--stack" />
+              </div>
+            )
+          }
+
+          <ul class="shelf__books" aria-label="Books" data-shelf-books>
+            {decor("left").map((book) => <DecorBookItem book={book} />)}
+            {books.map((book, i) => <BookItem book={book} index={i} />)}
+            {decor("right").map((book) => <DecorBookItem book={book} />)}
+          </ul>
+
+          {
+            features.shelfDecorations && (
+              <div class="shelf__side shelf__side--right">
+                <ShelfDecoration type="bookend" class="shelf-deco shelf-deco--bookend" />
+                <ShelfDecoration type="candle" class="shelf-deco shelf-deco--candle" />
+                {features.shelfCat && <ShelfDecoration type="cat" class="shelf-deco shelf-deco--cat" />}
+              </div>
+            )
+          }
+        </div>
+
+        <div class="shelf__plank" data-plank>
+          <span class="shelf__plank-top"></span>
+          <span class="shelf__plank-front"></span>
+        </div>
+        <div class="shelf__brackets" aria-hidden="true">
+          <svg viewBox="0 0 60 50" class="shelf__bracket"><path d="M4 2 H56 V8 Q30 10 12 46 H4 Z" /></svg>
+          <svg viewBox="0 0 60 50" class="shelf__bracket shelf__bracket--right"><path d="M4 2 H56 V8 Q30 10 12 46 H4 Z" /></svg>
+        </div>
+      </div>
+
+
+    </div>
+
+    <footer class="scene__footer" data-shelf-footer>
+      <span>© {year} {owner.name}</span>
+      <span class="scene__footer-keys" aria-hidden="true"><kbd>←</kbd><kbd>→</kbd> browse · <kbd>↵</kbd> open</span>
+    </footer>
+  </div>
+</section>

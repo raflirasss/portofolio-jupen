@@ -1,0 +1,17 @@
+---
+import Icon from "./Icon.astro";
+import { siteConfig } from "../../config/site.config";
+const on = siteConfig.sound.defaultOn;
+---
+
+<!-- Mute / unmute. Label & state are kept in sync by src/scripts/sound.ts -->
+<button
+  type="button"
+  class="ink-button ink-button--round sound-toggle"
+  data-sound-toggle
+  aria-pressed={on ? "true" : "false"}
+  aria-label={on ? "Mute sound effects" : "Unmute sound effects"}
+>
+  <Icon name="sound-on" size="20" class="sound-toggle__on" />
+  <Icon name="sound-off" size="20" class="sound-toggle__off" />
+</button>

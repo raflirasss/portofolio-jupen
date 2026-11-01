@@ -1,0 +1,42 @@
+---
+/** One gallery page: a category header plus an image-focused layout. */
+import type { ArtCategory } from "../../content/types";
+import Artwork from "../art/Artwork.astro";
+
+interface Props {
+  category: ArtCategory;
+  number: number;
+}
+
+const { category, number } = Astro.props;
+const max = { feature: 1, pair: 2, trio: 3, grid: 4 }[category.layout];
+const items = category.items.slice(0, max);
+---
+
+<div class:list={["gallery", `gallery--${category.layout}`]}>
+  <header class="gallery__head">
+    <p class="pg-kicker">Gallery · {String(number).padStart(2, "0")}</p>
+    <h2 class="pg-title pg-title--sm">{category.title}</h2>
+    {category.intro && <p class="pg-lead">{category.intro}</p>}
+  </header>
+  <ul class="gallery__grid">
+    {
+      items.map((item, i) => (
+        <li class:list={["gallery__item", `gallery__item--${i + 1}`]}>
+          <Artwork
+            art={item}
+            frame={category.layout === "grid" ? "plain" : "tape"}
+            zoomable
+            title={item.title}
+            sizes={category.layout === "feature" ? "(max-width: 760px) 90vw, 45vw" : "(max-width: 760px) 45vw, 22vw"}
+          />
+          <p class="gallery__caption">
+            <strong>{item.title}</strong>
+            {(item.medium || item.year) && <span>{[item.medium, item.year].filter(Boolean).join(" · ")}</span>}
+          </p>
+        </li>
+      ))
+    }
+  </ul>
+  {category.layout === "feature" && items[0]?.caption && <p class="pg-note gallery__note">{items[0].caption}</p>}
+</div>

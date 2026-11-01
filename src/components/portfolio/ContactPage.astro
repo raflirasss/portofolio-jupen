@@ -1,0 +1,100 @@
+---
+/**
+ * Contact book pages:
+ *   letter       — a handwritten letter to the visitor
+ *   links        — email + social "postage stamps"
+ *   availability — status & practical details
+ */
+import type { ContactContent } from "../../content/types";
+import { siteConfig } from "../../config/site.config";
+import Icon from "../ui/Icon.astro";
+import Illustration from "../art/Illustration.astro";
+import CvButton from "../ui/CvButton.astro";
+import type { IconName } from "../ui/icons";
+
+interface Props {
+  variant: "letter" | "links" | "availability";
+  letter?: ContactContent["letter"];
+  links?: ContactContent["links"];
+  availability?: ContactContent["availability"];
+}
+
+const { variant, letter, links, availability } = Astro.props;
+const { owner, social } = siteConfig;
+---
+
+{
+  variant === "letter" && letter && (
+    <div class="letter">
+      <span class="letter__stamp" aria-hidden="true">
+        <Illustration name="envelope" />
+      </span>
+      <p class="letter__greeting">{letter.greeting}</p>
+      {letter.paragraphs.map((p) => (
+        <p class="letter__para">{p}</p>
+      ))}
+      <p class="letter__signoff">{letter.signoff}</p>
+      <p class="letter__signature">{letter.signature}</p>
+      <span class="letter__seal" aria-hidden="true">✦</span>
+    </div>
+  )
+}
+
+{
+  variant === "links" && links && (
+    <div class="contact-links">
+      <p class="pg-kicker">{links.kicker}</p>
+      <h2 class="pg-title">{links.title}</h2>
+      <p class="pg-lead">{links.intro}</p>
+      <div class="contact-links__email">
+        <a href={`mailto:${owner.email}`} class="contact-links__mail">
+          <Icon name="mail" />
+          <span>{owner.email}</span>
+        </a>
+        <button type="button" class="contact-links__copy" data-copy={owner.email} aria-label="Copy email address">
+          <Icon name="copy" class="contact-links__copy-icon" />
+          <Icon name="check" class="contact-links__check-icon" />
+          <span class="contact-links__copied" aria-live="polite" />
+        </button>
+      </div>
+      <ul class="stamps">
+        {social.map((s, i) => (
+          <li style={`--r:${[-3, 2, -1, 3, -2, 1][i % 6]}deg`}>
+            <a href={s.url} target="_blank" rel="noopener noreferrer" class="stamp">
+              <span class="stamp__icon">
+                <Icon name={s.icon as IconName} size="100%" />
+              </span>
+              <span class="stamp__label">{s.label}</span>
+              <span class="stamp__handle">{s.handle}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+      <CvButton variant="page" class="contact-links__cv" />
+      <Illustration name="envelope" class="contact-links__art" />
+    </div>
+  )
+}
+
+{
+  variant === "availability" && availability && (
+    <div class="availability">
+      <p class="pg-kicker">{availability.kicker}</p>
+      <h2 class="pg-title">{availability.title}</h2>
+      <p class="availability__status">
+        <span class="availability__dot" aria-hidden="true" />
+        {availability.status}
+      </p>
+      <dl class="pg-facts pg-facts--stacked">
+        {availability.items.map((item) => (
+          <div>
+            <dt>{item.label}</dt>
+            <dd>{item.value}</dd>
+          </div>
+        ))}
+      </dl>
+      <Illustration name="teacup" class="availability__art" />
+      <p class="pg-note">{availability.note}</p>
+    </div>
+  )
+}

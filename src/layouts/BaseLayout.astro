@@ -1,0 +1,55 @@
+---
+import "../styles/variables.css";
+import "../styles/global.css";
+import "../styles/animations.css";
+import SvgDefs from "../components/art/SvgDefs.astro";
+import { siteConfig } from "../config/site.config";
+import { themeCss } from "../lib/theme";
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { meta, typography } = siteConfig;
+const { title = meta.title, description = meta.description } = Astro.props;
+const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : undefined;
+const ogImage = Astro.site ? new URL(meta.ogImage, Astro.site).href : meta.ogImage;
+---
+
+<!doctype html>
+<html lang={meta.lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="theme-color" content={meta.themeColor} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    {canonical && <link rel="canonical" href={canonical} />}
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href={typography.googleFontsUrl} />
+
+    <style is:inline set:html={themeCss()}></style>
+    <script is:inline>
+      // Flag JS early so no-JS visitors still get a readable fallback.
+      document.documentElement.classList.add("js");
+    </script>
+  </head>
+  <body>
+    <SvgDefs />
+    <slot />
+    <noscript>
+      <div class="noscript">
+        <p>This storybook needs JavaScript to turn its pages. Please enable it to explore the portfolio.</p>
+      </div>
+    </noscript>
+  </body>
+</html>

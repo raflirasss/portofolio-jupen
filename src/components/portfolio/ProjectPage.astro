@@ -1,0 +1,162 @@
+---
+/**
+ * All four portfolio project page variants:
+ *   art   — key artwork (left page)
+ *   info  — project detail + prev/next navigation (right page)
+ *   extra-art / extra-text — optional "behind the scenes" spread
+ */
+import type { Project } from "../../content/types";
+import type { Neighbour } from "../../lib/books";
+import Artwork from "../art/Artwork.astro";
+import Icon from "../ui/Icon.astro";
+import { siteConfig } from "../../config/site.config";
+
+interface Props {
+  variant: "art" | "info" | "extra-art" | "extra-text";
+  project: Project;
+  index?: number;
+  total?: number;
+  prev?: Neighbour;
+  next?: Neighbour;
+}
+
+const { variant, project, index = 0, total = 1, prev, next } = Astro.props;
+const { moreWork } = siteConfig.owner;
+const num = (n: number) => String(n).padStart(2, "0");
+---
+
+{
+  variant === "art" && (
+    <div class="project-art">
+      <div class="project-art__meta">
+        <span class="pg-meta">
+          No. {num(index + 1)} <span class="pg-faint">/ {num(total)}</span>
+        </span>
+        <span class="pg-meta">{project.category}</span>
+      </div>
+      <Artwork art={project.art} frame="tape" zoomable title={project.title} class="project-art__art" />
+      <h2 class="project-art__title">{project.title}</h2>
+      <p class="project-art__summary">{project.summary}</p>
+      <span class="pg-stamp" aria-hidden="true">
+        {project.year}
+      </span>
+    </div>
+  )
+}
+
+{
+  variant === "info" && (
+    <div class="project-info">
+      <p class="pg-kicker">Project {num(index + 1)}</p>
+      <h2 class="pg-title">{project.title}</h2>
+      <dl class="pg-facts">
+        <div>
+          <dt>Role</dt>
+          <dd>{project.role}</dd>
+        </div>
+        <div>
+          <dt>Year</dt>
+          <dd>{project.year}</dd>
+        </div>
+        <div>
+          <dt>Type</dt>
+          <dd>{project.category}</dd>
+        </div>
+      </dl>
+      <div class="pg-text">
+        {project.description.map((p) => (
+          <p>{p}</p>
+        ))}
+      </div>
+      <div class="pg-tools">
+        <span class="pg-meta">Made with</span>
+        <ul class="pg-chips">
+          {project.tools.map((tool) => (
+            <li class="pg-chip">{tool}</li>
+          ))}
+        </ul>
+      </div>
+      {project.links && project.links.length > 0 && (
+        <ul class="pg-links">
+          {project.links.map((link) => (
+            <li>
+              <a href={link.url} target="_blank" rel="noopener noreferrer" class="pg-link">
+                {link.label} <Icon name="external" size="0.95em" />
+              </a>
+            </li>
+          ))}
+        </ul>
+      )}
+      <nav class="pg-pager" aria-label="Project navigation">
+        {prev ? (
+          <button type="button" class="pg-pager__btn" data-goto={prev.anchor}>
+            <Icon name="arrow-left" />
+            <span>
+              <small>Previous</small>
+              {prev.title}
+            </span>
+          </button>
+        ) : (
+          <span />
+        )}
+        {next ? (
+          <button type="button" class="pg-pager__btn pg-pager__btn--next" data-goto={next.anchor}>
+            <span>
+              <small>Next</small>
+              {next.title}
+            </span>
+            <Icon name="arrow-right" />
+          </button>
+        ) : moreWork.url ? (
+          <a href={moreWork.url} target="_blank" rel="noopener noreferrer" class="pg-pager__btn pg-pager__btn--next">
+            <span>
+              <small>Want more?</small>
+              {moreWork.label}
+            </span>
+            <Icon name="external" />
+          </a>
+        ) : (
+          <button type="button" class="pg-pager__btn pg-pager__btn--next" data-goto="end">
+            <span>
+              <small>That's all</small>
+              The end
+            </span>
+            <Icon name="arrow-right" />
+          </button>
+        )}
+      </nav>
+    </div>
+  )
+}
+
+{
+  variant === "extra-art" && project.extra && (
+    <div class="project-extra-art">
+      <p class="pg-kicker">{project.title} — sketches</p>
+      <div class="project-extra-art__board">
+        {project.extra.images.slice(0, 2).map((art, i) => (
+          <figure class:list={["project-extra-art__item", `project-extra-art__item--${i + 1}`]}>
+            <Artwork art={art} frame="polaroid" zoomable title={art.caption ?? art.alt} />
+            {art.caption && <figcaption>{art.caption}</figcaption>}
+          </figure>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+{
+  variant === "extra-text" && project.extra && (
+    <div class="project-extra-text">
+      <p class="pg-kicker">{project.title}</p>
+      <h2 class="pg-title">{project.extra.heading}</h2>
+      <ol class="pg-numbered">
+        {project.extra.highlights.map((h) => (
+          <li>{h}</li>
+        ))}
+      </ol>
+      <Artwork art={project.art} frame="none" class="project-extra-text__art" />
+      <p class="pg-note">more on the next page →</p>
+    </div>
+  )
+}

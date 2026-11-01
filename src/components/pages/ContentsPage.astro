@@ -1,0 +1,39 @@
+---
+import type { BookConfig } from "../../config/site.config";
+import { siteConfig } from "../../config/site.config";
+import Illustration from "../art/Illustration.astro";
+
+interface Props {
+  book: BookConfig;
+  entries: { label: string; page: number; anchor: string }[];
+}
+
+const { book, entries } = Astro.props;
+const { labels, owner } = siteConfig;
+---
+
+<div class="contents">
+  <div class="bookplate">
+    <p class="bookplate__label">{labels.exLibris}</p>
+    <Illustration name={book.coverArt} class="bookplate__art" />
+    <p class="bookplate__title">{book.title}</p>
+    <p class="bookplate__owner">{owner.name}</p>
+  </div>
+
+  <nav class="toc" aria-label={`${labels.contents} — ${book.title}`}>
+    <p class="toc__heading">{labels.contents}</p>
+    <ol class="toc__list">
+      {
+        entries.map((entry) => (
+          <li>
+            <button type="button" class="toc__item" data-goto={entry.anchor}>
+              <span class="toc__label">{entry.label}</span>
+              <span class="toc__dots" aria-hidden="true" />
+              <span class="toc__page">{entry.page}</span>
+            </button>
+          </li>
+        ))
+      }
+    </ol>
+  </nav>
+</div>

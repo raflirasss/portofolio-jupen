@@ -1,0 +1,29 @@
+---
+import type { BookConfig } from "../../config/site.config";
+import { siteConfig } from "../../config/site.config";
+import Illustration from "../art/Illustration.astro";
+
+interface Props {
+  book: BookConfig;
+}
+
+const { book } = Astro.props;
+---
+
+<div class:list={["cover", `tone-${book.tone}`]}>
+  <div class="cover__frame">
+    <span class="cover__corner cover__corner--tl"></span>
+    <span class="cover__corner cover__corner--tr"></span>
+    <span class="cover__corner cover__corner--bl"></span>
+    <span class="cover__corner cover__corner--br"></span>
+
+    <p class="cover__volume">Volume {book.volume}</p>
+    <div class="cover__medallion">
+      <Illustration name={book.coverArt} class="cover__art" />
+    </div>
+    <h2 class="cover__title">{book.title}</h2>
+    <p class="cover__subtitle">{book.subtitle}</p>
+    <span class="cover__ornament" aria-hidden="true">✦</span>
+    <p class="cover__author">{siteConfig.owner.name}</p>
+  </div>
+</div>

@@ -1,0 +1,23 @@
+---
+import { siteConfig } from "../../config/site.config";
+import Icon from "../ui/Icon.astro";
+
+const { labels } = siteConfig;
+---
+
+<nav class="book-nav" aria-label="Page navigation" data-chrome>
+  <button type="button" class="ink-button ink-button--round book-nav__btn" data-prev aria-label={labels.prevPage}>
+    <Icon name="arrow-left" size="22" />
+  </button>
+
+  <div class="book-nav__progress">
+    <span class="book-nav__count" data-page-count>—</span>
+    <span class="book-nav__track" aria-hidden="true">
+      <span class="book-nav__fill" data-progress></span>
+    </span>
+  </div>
+
+  <button type="button" class="ink-button ink-button--round book-nav__btn" data-next aria-label={labels.nextPage}>
+    <Icon name="arrow-right" size="22" />
+  </button>
+</nav>

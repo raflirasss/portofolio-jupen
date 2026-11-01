@@ -1,0 +1,34 @@
+---
+import type { Art } from "../../content/types";
+import Artwork from "../art/Artwork.astro";
+
+interface Props {
+  kicker: string;
+  title: string;
+  paragraphs: string[];
+  quote?: string;
+  note?: string;
+  art?: Art;
+}
+
+const { kicker, title, paragraphs, quote, note, art } = Astro.props;
+---
+
+<div class="textpage">
+  <p class="pg-kicker">{kicker}</p>
+  <h2 class="pg-title">{title}</h2>
+  <div class="pg-text">
+    {paragraphs.map((p, i) => <p class:list={{ "pg-dropcap": i === 0 }}>{p}</p>)}
+  </div>
+  {
+    quote && (
+      <blockquote class="pg-quote">
+        <p>{quote}</p>
+      </blockquote>
+    )
+  }
+  <div class="textpage__foot">
+    {note && <p class="pg-note">{note}</p>}
+    {art && <Artwork art={art} frame="none" class="textpage__art" />}
+  </div>
+</div>

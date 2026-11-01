@@ -1,0 +1,22 @@
+---
+/** A decorative book on the shelf: same spine artwork, but not clickable. */
+import type { DecorBook } from "../../config/site.config";
+import BookSpine from "../book/BookSpine.astro";
+
+interface Props {
+  book: DecorBook;
+}
+
+const { book } = Astro.props;
+---
+
+<li
+  class="shelf-book shelf-book--decor"
+  style={`--h:${book.height};--t:${book.thickness};--lean:${book.lean ?? 0}deg`}
+  data-shelf-book
+  aria-hidden="true"
+>
+  <span class="shelf-book__body">
+    <BookSpine book={book} />
+  </span>
+</li>

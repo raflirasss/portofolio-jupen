@@ -1,0 +1,93 @@
+---
+/**
+ * The open-book stage. One shared book is re-dressed for whichever book is
+ * pulled from the shelf: its cover is cloned from a <template> and its pages
+ * are moved in from that book's page store.
+ *
+ * Geometry (all inside .book, which is `cols × page-w` wide):
+ *   - the closed book occupies the right-most page column
+ *   - the cover hinges on that column's left edge (the spine)
+ * Everything animates with 2D transforms + opacity only (cheap on any device).
+ */
+import { siteConfig } from "../../config/site.config";
+import { buildPages } from "../../lib/books";
+import BookCover from "./BookCover.astro";
+import BookPages from "./BookPages.astro";
+import BookNavigation from "./BookNavigation.astro";
+import PageFlip from "./PageFlip.astro";
+import Icon from "../ui/Icon.astro";
+
+const { books, labels } = siteConfig;
+---
+
+<div class="viewer" id="book-viewer" role="dialog" aria-modal="true" aria-labelledby="viewer-title" data-viewer>
+  <div class="viewer__backdrop" data-backdrop></div>
+
+  <header class="viewer__top" data-chrome>
+    <button type="button" class="ink-button viewer__close" data-close aria-label={labels.closeBook}>
+      <Icon name="shelf" size="20" />
+      <span class="viewer__close-label">{labels.closeBook}</span>
+    </button>
+    <p class="viewer__title" id="viewer-title" data-viewer-title></p>
+    <span class="viewer__spacer" aria-hidden="true"></span>
+  </header>
+
+  <div class="viewer__stage" data-stage>
+    <div class="book" data-book data-state="hidden">
+      <div class="book__floor-shadow" data-floor-shadow></div>
+
+      <!-- Back cover: the board the pages rest on -->
+      <div class="book__board book__board--back" data-back-board></div>
+
+      <!-- Front cover, hinged on the spine. Opening = scaleX 1 → -1 around that edge. -->
+      <div class="book__cover" data-cover>
+        <div class="book__cover-face book__cover-front" data-cover-front></div>
+        <div class="book__cover-face book__cover-inside">
+          <div class="book__cover-slot" data-cover-slot></div>
+        </div>
+        <span class="book__cover-shade" data-cover-shade></span>
+      </div>
+
+      <!-- Paper -->
+      <div class="book__stack book__stack--left" data-stack-left></div>
+      <div class="book__stack book__stack--right" data-stack-right></div>
+      <div class="page-slot page-slot--left" data-slot-left></div>
+      <div class="page-slot page-slot--right" data-slot-right></div>
+      <div class="book__gutter" aria-hidden="true"></div>
+      <div class="book__cast book__cast--left" data-cast-left aria-hidden="true"></div>
+      <div class="book__cast book__cast--right" data-cast-right aria-hidden="true"></div>
+
+      <PageFlip />
+
+      <!-- Corner curls hint that the outer edge of a page can be clicked -->
+      <span class="book__curl book__curl--prev" aria-hidden="true"></span>
+      <span class="book__curl book__curl--next" aria-hidden="true"></span>
+    </div>
+
+    <p class="viewer__hint" data-hint-keys>{labels.keyboardHint}</p>
+  </div>
+
+  <BookNavigation />
+
+  <p class="sr-only" aria-live="polite" data-announcer></p>
+
+  <!-- Hidden stores (pages are moved, covers/spines are cloned) -->
+  <div class="page-store" data-store inert>
+    {
+      books.map((book) => (
+        <div class="page-store__book" data-store-book={book.id}>
+          <BookPages pages={buildPages(book.id)} />
+        </div>
+      ))
+    }
+  </div>
+  {
+    books.map((book) => (
+      <>
+        <template data-cover-template={book.id}>
+          <BookCover book={book} />
+        </template>
+      </>
+    ))
+  }
+</div>

@@ -1,0 +1,16 @@
+---
+import Icon from "./Icon.astro";
+---
+
+<dialog class="lightbox" data-lightbox-dialog aria-labelledby="lightbox-title">
+  <div class="lightbox__card">
+    <button type="button" class="ink-button ink-button--round lightbox__close" data-lightbox-close aria-label="Close artwork">
+      <Icon name="close" size="20" />
+    </button>
+    <div class="lightbox__art" data-lightbox-art></div>
+    <div class="lightbox__text">
+      <p class="lightbox__title" id="lightbox-title" data-lightbox-title></p>
+      <p class="lightbox__caption" data-lightbox-caption></p>
+    </div>
+  </div>
+</dialog>

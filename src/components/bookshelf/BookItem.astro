@@ -1,0 +1,36 @@
+---
+import type { BookConfig } from "../../config/site.config";
+import { siteConfig } from "../../config/site.config";
+import BookSpine from "../book/BookSpine.astro";
+
+interface Props {
+  book: BookConfig;
+  index: number;
+}
+
+const { book, index } = Astro.props;
+---
+
+<li
+  class="shelf-book"
+  style={`--h:${book.height};--t:${book.thickness};--lean:${book.lean ?? 0}deg;--i:${index}`}
+  data-shelf-book={book.id}
+>
+  <button
+    class="shelf-book__btn"
+    type="button"
+    data-book-id={book.id}
+    data-cursor={siteConfig.labels.openBook}
+    aria-label={`Open “${book.title}” — ${book.subtitle}`}
+    aria-haspopup="dialog"
+    aria-controls="book-viewer"
+  >
+    <span class="shelf-book__body">
+      <BookSpine book={book} />
+    </span>
+  </button>
+  <span class="shelf-book__label" aria-hidden="true">
+    <span class="shelf-book__label-title">{book.title}</span>
+    <span class="shelf-book__label-sub">{book.subtitle}</span>
+  </span>
+</li>

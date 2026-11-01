@@ -1,0 +1,29 @@
+---
+import type { AboutContent } from "../../content/types";
+import Icon from "../ui/Icon.astro";
+
+interface Props {
+  interests: AboutContent["interests"];
+}
+
+const { interests } = Astro.props;
+---
+
+<div class="interests">
+  <p class="pg-kicker">{interests.kicker}</p>
+  <h2 class="pg-title">{interests.title}</h2>
+  <p class="pg-lead">{interests.intro}</p>
+  <ul class="interests__grid">
+    {
+      interests.items.map((item, i) => (
+        <li class="interests__item" style={`--r:${(i % 3) - 1}deg`}>
+          <span class="interests__icon">
+            <Icon name={item.icon} size="100%" />
+          </span>
+          <span class="interests__label">{item.label}</span>
+          <span class="interests__note">{item.note}</span>
+        </li>
+      ))
+    }
+  </ul>
+</div>

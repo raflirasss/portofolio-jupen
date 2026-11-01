@@ -1,0 +1,32 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Bookshelf from "../components/bookshelf/Bookshelf.astro";
+import BookViewer from "../components/book/BookViewer.astro";
+import CustomCursor from "../components/ui/CustomCursor.astro";
+import LoadingScreen from "../components/ui/LoadingScreen.astro";
+import SoundToggle from "../components/ui/SoundToggle.astro";
+import Lightbox from "../components/ui/Lightbox.astro";
+import { siteConfig } from "../config/site.config";
+import "../styles/bookshelf.css";
+import "../styles/book.css";
+import "../styles/pages.css";
+import "../styles/ui.css";
+
+const { features, sound, cursor } = siteConfig;
+---
+
+<BaseLayout>
+  {features.loadingScreen && <LoadingScreen />}
+  <main class="app" data-app>
+    <Bookshelf />
+    <BookViewer />
+  </main>
+  {sound.enabled && <SoundToggle />}
+  {features.lightbox && <Lightbox />}
+  {cursor.enabled && <CustomCursor />}
+</BaseLayout>
+
+<script>
+  import { boot } from "../scripts/main";
+  boot();
+</script>

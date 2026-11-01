@@ -1,0 +1,31 @@
+---
+/**
+ * Shared SVG filters & patterns referenced by every illustration:
+ *  - #sketchy      subtle wobble that makes clean vector lines feel hand-drawn
+ *  - #hatch*       pen hatching used for shading
+ */
+---
+
+<svg class="svg-defs" width="0" height="0" aria-hidden="true" focusable="false">
+  <defs>
+    <filter id="sketchy" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="3" result="noise"></feTurbulence>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="2.6" xChannelSelector="R" yChannelSelector="G"></feDisplacementMap>
+    </filter>
+    <filter id="sketchy-strong" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.02" numOctaves="2" seed="8" result="noise"></feTurbulence>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="5" xChannelSelector="R" yChannelSelector="G"></feDisplacementMap>
+    </filter>
+    <pattern id="hatch" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(40)">
+      <rect width="5" height="5" class="hatch-bg"></rect>
+      <line x1="0" y1="0" x2="0" y2="5" class="hatch-line"></line>
+    </pattern>
+    <pattern id="hatch-light" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(40)">
+      <line x1="0" y1="0" x2="0" y2="5" class="hatch-line-light"></line>
+    </pattern>
+    <pattern id="cross-hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <line x1="0" y1="0" x2="0" y2="6" class="hatch-line"></line>
+      <line x1="0" y1="0" x2="6" y2="0" class="hatch-line"></line>
+    </pattern>
+  </defs>
+</svg>

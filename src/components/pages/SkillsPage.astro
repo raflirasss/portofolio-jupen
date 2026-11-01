@@ -1,0 +1,33 @@
+---
+import type { AboutContent } from "../../content/types";
+
+interface Props {
+  skills: AboutContent["skills"];
+}
+
+const { skills } = Astro.props;
+---
+
+<div class="skills">
+  <p class="pg-kicker">{skills.kicker}</p>
+  <h2 class="pg-title">{skills.title}</h2>
+  {
+    skills.groups.map((group) => (
+      <section class="skills__group">
+        <h3 class="pg-meta">{group.name}</h3>
+        <ul>
+          {group.items.map((item) => (
+            <li class="skills__item">
+              <span>{item.label}</span>
+              <span class="skills__dots" role="img" aria-label={`${item.level} out of 5`}>
+                {[1, 2, 3, 4, 5].map((n) => (
+                  <span class:list={["skills__dot", { "is-on": n <= item.level }]} />
+                ))}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </section>
+    ))
+  }
+</div>

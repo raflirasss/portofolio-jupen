@@ -1,0 +1,32 @@
+---
+import type { AboutContent } from "../../content/types";
+import { siteConfig } from "../../config/site.config";
+import Artwork from "../art/Artwork.astro";
+import CvButton from "../ui/CvButton.astro";
+
+interface Props {
+  profile: AboutContent["profile"];
+}
+
+const { profile } = Astro.props;
+const { owner } = siteConfig;
+---
+
+<div class="profile">
+  <Artwork art={profile.portrait} frame="polaroid" class="profile__portrait" />
+  <p class="profile__greeting">{profile.greeting}</p>
+  <h2 class="profile__name">{owner.name}</h2>
+  <p class="pg-meta">{owner.role}</p>
+  <p class="profile__intro">{profile.intro}</p>
+  <dl class="profile__facts">
+    {
+      profile.facts.map((fact) => (
+        <div>
+          <dt>{fact.label}</dt>
+          <dd>{fact.value}</dd>
+        </div>
+      ))
+    }
+  </dl>
+  <CvButton variant="page" class="profile__cv" />
+</div>

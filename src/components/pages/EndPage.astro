@@ -1,0 +1,37 @@
+---
+import type { BookConfig } from "../../config/site.config";
+import { siteConfig } from "../../config/site.config";
+import Illustration from "../art/Illustration.astro";
+import Icon from "../ui/Icon.astro";
+
+interface Props {
+  book: BookConfig;
+}
+
+const { book } = Astro.props;
+const { labels } = siteConfig;
+const { moreWork } = siteConfig.owner;
+const showMore = !!moreWork.url && (book.id === "portfolio" || book.id === "art");
+---
+
+<div class="endpage">
+  <Illustration name={book.coverArt} class="endpage__art" />
+  <p class="endpage__title">{labels.theEnd}</p>
+  <span class="pg-divider" aria-hidden="true"></span>
+  <p class="endpage__note">thanks for reading “{book.title}”</p>
+  {
+    showMore && (
+      <a href={moreWork.url} target="_blank" rel="noopener noreferrer" class="pg-button pg-button--accent endpage__more">
+        <Icon name="behance" /> {moreWork.label}
+      </a>
+    )
+  }
+  <div class="endpage__actions">
+    <button type="button" class="pg-button" data-goto-page="0">
+      <Icon name="list" /> Contents
+    </button>
+    <button type="button" class="pg-button pg-button--ink" data-close>
+      <Icon name="shelf" /> {labels.closeBook}
+    </button>
+  </div>
+</div>

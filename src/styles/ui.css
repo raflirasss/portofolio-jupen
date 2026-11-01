@@ -1,0 +1,285 @@
+/* ═════════════════════════════════════════════════════════════════════════
+   SHELL UI — loader, cursor, sound toggle, lightbox
+   ═════════════════════════════════════════════════════════════════════════ */
+
+/* ── Loading screen ────────────────────────────────────────────────────── */
+.loader {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-loader);
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 0.6rem;
+  background: var(--color-bg);
+  /* Safety net: disappears on its own if JavaScript never runs */
+  animation: loader-fallback 0.4s 4s forwards;
+}
+html.js .loader {
+  animation: none;
+}
+@keyframes loader-fallback {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+.loader__book {
+  width: 120px;
+  fill: none;
+  stroke: var(--color-ink);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.loader__line {
+  stroke-dasharray: 400;
+  stroke-dashoffset: 400;
+  animation: draw 1.4s var(--ease-in-out) forwards;
+}
+.loader__line--2 {
+  animation-delay: 0.5s;
+}
+.loader__line--3 {
+  stroke-width: 1.5;
+  animation-delay: 0.8s;
+}
+
+.loader__name {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 600;
+  font-style: italic;
+}
+.loader__label {
+  font-family: var(--font-hand);
+  font-size: 1.2rem;
+  color: var(--color-muted);
+}
+
+/* ── Sound toggle ──────────────────────────────────────────────────────── */
+.sound-toggle {
+  position: fixed;
+  right: var(--gutter);
+  bottom: clamp(10px, 2.2vh, 20px);
+  z-index: var(--z-ui);
+  --size: 42px;
+}
+.sound-toggle__on {
+  display: none;
+}
+.sound-toggle[aria-pressed="true"] .sound-toggle__on {
+  display: block;
+}
+.sound-toggle[aria-pressed="true"] .sound-toggle__off {
+  display: none;
+}
+
+/* In the book view the toggle moves to the top bar's empty corner */
+html.book-open .sound-toggle {
+  top: calc((var(--chrome-top) - var(--size)) / 2);
+  bottom: auto;
+}
+@media (max-height: 520px) and (orientation: landscape) {
+  html.book-open .sound-toggle {
+    top: 8px;
+    right: 10px;
+  }
+}
+
+/* ── Custom cursor ─────────────────────────────────────────────────────── */
+.cursor {
+  position: fixed;
+  inset: 0 auto auto 0;
+  z-index: var(--z-cursor);
+  pointer-events: none;
+  display: none;
+}
+html.has-ink-cursor .cursor {
+  display: block;
+}
+
+.cursor__dot,
+.cursor__ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  will-change: transform;
+}
+
+.cursor__dot {
+  width: 8px;
+  height: 8px;
+  margin: -4px 0 0 -4px;
+  border-radius: 50%;
+  background: var(--color-ink);
+  transition:
+    width 0.25s var(--ease-out),
+    height 0.25s var(--ease-out),
+    margin 0.25s var(--ease-out),
+    background-color 0.2s;
+}
+
+.cursor__ring {
+  width: 40px;
+  height: 40px;
+  margin: -20px 0 0 -20px;
+  display: grid;
+  place-items: center;
+  transition:
+    width 0.4s var(--ease-spring),
+    height 0.4s var(--ease-spring),
+    margin 0.4s var(--ease-spring),
+    opacity 0.3s;
+}
+.cursor__sketch {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  fill: none;
+  stroke: var(--color-ink);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  overflow: visible;
+  transition: transform 0.6s var(--ease-out);
+}
+.cursor__label {
+  position: relative;
+  font-family: var(--font-hand);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--color-paper);
+  opacity: 0;
+  transform: scale(0.6);
+  transition:
+    opacity 0.2s,
+    transform 0.35s var(--ease-spring);
+}
+
+/* Hovering anything interactive */
+.cursor.is-hover .cursor__ring {
+  width: 54px;
+  height: 54px;
+  margin: -27px 0 0 -27px;
+}
+.cursor.is-hover .cursor__sketch {
+  transform: rotate(90deg);
+}
+.cursor.is-hover .cursor__dot {
+  width: 5px;
+  height: 5px;
+  margin: -2.5px 0 0 -2.5px;
+}
+
+/* Hovering something with a label (books: "open", page edges: "next") */
+.cursor.has-label .cursor__ring {
+  width: 74px;
+  height: 74px;
+  margin: -37px 0 0 -37px;
+}
+.cursor.has-label .cursor__sketch {
+  fill: var(--color-ink);
+  transform: rotate(160deg);
+}
+.cursor.has-label .cursor__label {
+  opacity: 1;
+  transform: scale(1);
+}
+.cursor.has-label .cursor__dot {
+  opacity: 0;
+}
+
+.cursor.is-down .cursor__ring {
+  transform: scale(0.85);
+}
+.cursor.is-hidden {
+  opacity: 0;
+}
+
+/* ── Lightbox ──────────────────────────────────────────────────────────── */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-lightbox);
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  max-height: none;
+  margin: 0;
+  padding: var(--gutter);
+  border: 0;
+  background: transparent;
+  color: var(--color-ink);
+  overflow: hidden;
+}
+.lightbox[open] {
+  display: grid;
+  place-items: center;
+}
+.lightbox::backdrop {
+  background: rgb(27 26 24 / 0.55);
+  backdrop-filter: blur(3px);
+}
+
+.lightbox__card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: min(92vw, 820px, calc((100svh - 2 * var(--gutter) - 90px) * 1.1));
+  max-height: calc(100svh - 2 * var(--gutter));
+  padding: clamp(12px, 2.4vw, 22px) clamp(12px, 2.4vw, 22px) clamp(14px, 2vw, 20px);
+  background: var(--color-paper);
+  border: 2px solid var(--color-ink);
+  border-radius: 4px 6px 5px 4px / 5px 4px 6px 5px;
+  box-shadow: 6px 6px 0 var(--color-ink);
+}
+
+.lightbox__close {
+  position: absolute;
+  top: -16px;
+  right: -16px;
+  z-index: 2;
+}
+
+.lightbox__art {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  aspect-ratio: 1.1;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background: radial-gradient(ellipse at 50% 40%, var(--gray-50), var(--color-paper-shade));
+  border: 1.5px solid var(--color-ink);
+}
+.lightbox__art .artwork__ill {
+  position: absolute;
+  inset: 6%;
+  width: 88%;
+  height: 88%;
+}
+.lightbox__art img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.lightbox__text {
+  padding-top: 0.8rem;
+}
+.lightbox__title {
+  font-family: var(--font-heading);
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+.lightbox__caption {
+  color: var(--color-muted);
+  font-size: 0.92rem;
+}
+.lightbox__caption:empty {
+  display: none;
+}

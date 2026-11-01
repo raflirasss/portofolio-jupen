@@ -1,0 +1,206 @@
+/* ── Reset ──────────────────────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  /* The whole experience lives inside the viewport — no page scrolling. */
+  overflow: hidden;
+  overscroll-behavior: none;
+  background: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+/* Paper grain over everything */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: calc(var(--z-cursor) - 1);
+  pointer-events: none;
+  background-image: var(--noise);
+  opacity: var(--grain-opacity);
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+a {
+  color: inherit;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  line-height: 1.08;
+  font-variation-settings: "SOFT" 60, "WONK" 1;
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+ul,
+ol {
+  list-style: none;
+  padding: 0;
+}
+
+::selection {
+  background: var(--accent-soft);
+  color: var(--color-ink);
+}
+
+:focus-visible {
+  outline: 2px dashed var(--color-ink);
+  outline-offset: 4px;
+  border-radius: 6px;
+}
+
+.sr-only {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.svg-defs {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+.hatch-bg {
+  fill: transparent;
+}
+.hatch-line {
+  stroke: var(--color-ink);
+  stroke-width: 1.1;
+  opacity: 0.55;
+}
+.hatch-line-light {
+  stroke: #f3ede1;
+  stroke-width: 1.1;
+  opacity: 0.55;
+}
+
+/* ── Shared UI atoms ───────────────────────────────────────────────────── */
+.hand {
+  font-family: var(--font-hand);
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+
+/* Sketchy pill button used across the shell UI */
+.ink-button {
+  --size: 44px;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5em;
+  min-width: var(--size);
+  height: var(--size);
+  padding: 0 0.9em;
+  border: 1.6px solid var(--color-ink);
+  border-radius: var(--wobble-1);
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-size: 0.92rem;
+  font-weight: 500;
+  box-shadow: 2px 2px 0 var(--color-ink);
+  transition:
+    transform 0.25s var(--ease-spring),
+    box-shadow 0.25s var(--ease-out),
+    background-color 0.2s,
+    opacity 0.2s;
+}
+.ink-button--round {
+  padding: 0;
+  width: var(--size);
+  border-radius: var(--wobble-soft);
+}
+.ink-button:hover {
+  transform: translate(-1px, -2px) rotate(-1.5deg);
+  box-shadow: 3px 4px 0 var(--color-ink);
+}
+.ink-button:active {
+  transform: translate(1px, 1px);
+  box-shadow: 0 0 0 var(--color-ink);
+}
+.ink-button[disabled] {
+  opacity: 0.3;
+  pointer-events: none;
+  box-shadow: 0 0 0 var(--color-ink);
+}
+
+/* ── No-JS fallback ────────────────────────────────────────────────────── */
+.noscript {
+  position: fixed;
+  inset: auto 0 0 0;
+  z-index: var(--z-loader);
+  padding: 1rem;
+  text-align: center;
+  background: var(--color-ink);
+  color: var(--color-paper);
+}
+
+/* ── Lite mode (low-end devices, see siteConfig.performance) ───────────── */
+html.lite body::after {
+  display: none;
+}
+/* The hand-drawn wobble is an SVG filter: beautiful, but costly to paint */
+html.lite .ill > g {
+  filter: none;
+}
+
+/* ── Custom cursor: only hide the system one when the script enables it ─ */
+html.has-ink-cursor:not(.keep-native-cursor),
+html.has-ink-cursor:not(.keep-native-cursor) * {
+  cursor: none !important;
+}

@@ -1,0 +1,21 @@
+---
+import type { ChapterData } from "../../lib/books";
+import Artwork from "../art/Artwork.astro";
+
+interface Props {
+  chapter: ChapterData;
+  volume: string;
+}
+
+const { chapter, volume } = Astro.props;
+---
+
+<div class="chapter">
+  <span class="chapter__numeral" aria-hidden="true">{volume}</span>
+  <p class="pg-kicker">{chapter.kicker}</p>
+  <h2 class="chapter__title">{chapter.title}</h2>
+  <span class="pg-divider" aria-hidden="true"></span>
+  <Artwork art={chapter.art} frame="none" class="chapter__art" />
+  <p class="chapter__intro">{chapter.intro}</p>
+  <p class="pg-turn" aria-hidden="true">turn the page →</p>
+</div>

@@ -1,0 +1,27 @@
+---
+/** "Download CV" button — renders nothing when siteConfig.owner.cv is empty. */
+import { siteConfig } from "../../config/site.config";
+import Icon from "./Icon.astro";
+
+interface Props {
+  class?: string;
+  variant?: "ink" | "page";
+}
+
+const { class: className, variant = "ink" } = Astro.props;
+const { cv, name } = siteConfig.owner;
+const fileName = `${name.replace(/\s+/g, "-")}-CV.pdf`;
+---
+
+{
+  cv && (
+    <a
+      href={cv}
+      download={fileName}
+      class:list={[variant === "ink" ? "ink-button" : "pg-button pg-button--ink", "cv-button", className]}
+    >
+      <Icon name="download" size="1.1em" />
+      <span>Download CV</span>
+    </a>
+  )
+}

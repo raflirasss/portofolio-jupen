@@ -1,0 +1,134 @@
+/*
+ * Design tokens. Colours, fonts and geometry that you'd normally tweak are
+ * injected from site.config.ts (see src/lib/theme.ts) — these are defaults
+ * plus the derived tokens built on top of them.
+ */
+:root {
+  /* Defaults (overridden by site.config.ts) */
+  --color-bg: #f3f0ea;
+  --color-paper: #fbfaf6;
+  --color-paper-shade: #efebe2;
+  --color-ink: #1b1a18;
+  --color-muted: #6e6a63;
+  --color-line: #2a2825;
+  --accent-base: #c2a14e;
+  --accent-strength: 0.85;
+  --grain-opacity: 0.075;
+  --font-heading: Georgia, serif;
+  --font-body: system-ui, sans-serif;
+  --font-hand: cursive;
+  --page-text-scale: 1;
+  --page-ratio: 0.72;
+  --page-max-h: 760px;
+  --board-overhang: 10px;
+  --cols: 2;
+
+  /* Greys */
+  --gray-50: #f7f5f0;
+  --gray-100: #ebe7df;
+  --gray-200: #d8d3c9;
+  --gray-300: #bdb7ab;
+  --gray-400: #9b958a;
+  --gray-500: #7a756c;
+  --gray-600: #5b5750;
+  --gray-700: #403d38;
+  --gray-800: #2b2926;
+  --gray-900: #1b1a18;
+
+  /* Accent — mixed towards grey by --accent-strength so it can be dialled down */
+  --accent: color-mix(in oklab, var(--accent-base) calc(var(--accent-strength) * 100%), var(--gray-400));
+  --accent-soft: color-mix(in oklab, var(--accent) 45%, var(--color-paper));
+
+  /* Hand-drawn radii: deliberately uneven */
+  --wobble-1: 255px 15px 225px 15px / 15px 225px 15px 255px;
+  --wobble-2: 15px 255px 15px 225px / 225px 15px 255px 15px;
+  --wobble-3: 120px 12px 140px 10px / 10px 130px 12px 120px;
+  --wobble-soft: 40% 60% 55% 45% / 55% 45% 60% 40%;
+
+  /* Shadows (warm, soft) */
+  --shadow-1: 0 1px 2px rgb(27 26 24 / 0.12), 0 2px 6px rgb(27 26 24 / 0.08);
+  --shadow-2: 0 4px 10px rgb(27 26 24 / 0.12), 0 12px 28px rgb(27 26 24 / 0.12);
+  --shadow-3: 0 10px 24px rgb(27 26 24 / 0.16), 0 30px 70px rgb(27 26 24 / 0.2);
+  --shadow-ink: 3px 3px 0 var(--color-ink);
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+
+  /* Layers */
+  --z-shelf: 1;
+  --z-viewer: 20;
+  --z-ui: 40;
+  --z-lightbox: 60;
+  --z-loader: 80;
+  --z-cursor: 100;
+
+  /* Paper grain, generated noise — no image request */
+  --noise: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.1  0 0 0 0 0.09  0 0 0 0 0.08  0 0 0 .9 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  --fibres: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='400'><filter id='f'><feTurbulence type='fractalNoise' baseFrequency='.012 .09' numOctaves='2' seed='4' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.2  0 0 0 0 0.18  0 0 0 0 0.15  0 0 0 .35 -.05'/></filter><rect width='100%' height='100%' filter='url(%23f)'/></svg>");
+
+  /* Shell UI sizes */
+  --gutter: clamp(14px, 3vw, 40px);
+  --chrome-top: 64px;
+  --chrome-bottom: 72px;
+}
+
+@media (max-width: 760px) {
+  :root {
+    --chrome-top: 56px;
+    --chrome-bottom: 68px;
+  }
+}
+
+/* ── Book tones (cover / spine colour schemes) ─────────────────────────── */
+.tone-ink {
+  --cover: #23211f;
+  --cover-2: #34312d;
+  --cover-ink: #efe8d8;
+  --cover-line: rgb(239 232 216 / 0.55);
+  --ill-ink: #efe8d8;
+  --ill-paper: #3b3833;
+  --ill-shade: #15140f;
+  --hatch: url(#hatch-light);
+}
+.tone-charcoal {
+  --cover: #45423d;
+  --cover-2: #57534d;
+  --cover-ink: #f2ecdf;
+  --cover-line: rgb(242 236 223 / 0.5);
+  --ill-ink: #f2ecdf;
+  --ill-paper: #5b5751;
+  --ill-shade: #2c2a26;
+  --hatch: url(#hatch-light);
+}
+.tone-slate {
+  --cover: #6a6c6e;
+  --cover-2: #7b7d7f;
+  --cover-ink: #f6f2ea;
+  --cover-line: rgb(246 242 234 / 0.55);
+  --ill-ink: #f6f2ea;
+  --ill-paper: #84868a;
+  --ill-shade: #47494b;
+  --hatch: url(#hatch-light);
+}
+.tone-stone {
+  --cover: #bfb8aa;
+  --cover-2: #cdc7ba;
+  --cover-ink: #1f1d1a;
+  --cover-line: rgb(31 29 26 / 0.45);
+  --ill-ink: #1f1d1a;
+  --ill-paper: #ece6da;
+  --ill-shade: #9d968a;
+  --hatch: url(#hatch);
+}
+.tone-paper {
+  --cover: #e9e3d6;
+  --cover-2: #f3eee4;
+  --cover-ink: #1f1d1a;
+  --cover-line: rgb(31 29 26 / 0.4);
+  --ill-ink: #1f1d1a;
+  --ill-paper: #fbf8f1;
+  --ill-shade: #c9c1b2;
+  --hatch: url(#hatch);
+}

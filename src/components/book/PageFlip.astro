@@ -1,0 +1,18 @@
+---
+/**
+ * The single sheet that physically turns. During a flip the outgoing page is
+ * moved onto its front face and the incoming page onto its back face, then the
+ * sheet rotates around the spine (see src/scripts/page-flip.ts).
+ */
+---
+
+<div class="leaf" data-leaf aria-hidden="true">
+  <div class="leaf__face leaf__front">
+    <div class="leaf__slot" data-leaf-front></div>
+    <span class="leaf__shade"></span>
+  </div>
+  <div class="leaf__face leaf__back">
+    <div class="leaf__slot" data-leaf-back></div>
+    <span class="leaf__shade"></span>
+  </div>
+</div>
