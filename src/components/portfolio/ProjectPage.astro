@@ -1,9 +1,8 @@
 ---
 /**
- * All four portfolio project page variants:
+ * The two pages of a portfolio project (one spread per project):
  *   art   — key artwork (left page)
  *   info  — project detail + prev/next navigation (right page)
- *   extra-art / extra-text — optional "behind the scenes" spread
  */
 import type { Project } from "../../content/types";
 import type { Neighbour } from "../../lib/books";
@@ -12,7 +11,7 @@ import Icon from "../ui/Icon.astro";
 import { siteConfig } from "../../config/site.config";
 
 interface Props {
-  variant: "art" | "info" | "extra-art" | "extra-text";
+  variant: "art" | "info";
   project: Project;
   index?: number;
   total?: number;
@@ -125,38 +124,6 @@ const num = (n: number) => String(n).padStart(2, "0");
           </button>
         )}
       </nav>
-    </div>
-  )
-}
-
-{
-  variant === "extra-art" && project.extra && (
-    <div class="project-extra-art">
-      <p class="pg-kicker">{project.title} — sketches</p>
-      <div class="project-extra-art__board">
-        {project.extra.images.slice(0, 2).map((art, i) => (
-          <figure class:list={["project-extra-art__item", `project-extra-art__item--${i + 1}`]}>
-            <Artwork art={art} frame="polaroid" zoomable title={art.caption ?? art.alt} />
-            {art.caption && <figcaption>{art.caption}</figcaption>}
-          </figure>
-        ))}
-      </div>
-    </div>
-  )
-}
-
-{
-  variant === "extra-text" && project.extra && (
-    <div class="project-extra-text">
-      <p class="pg-kicker">{project.title}</p>
-      <h2 class="pg-title">{project.extra.heading}</h2>
-      <ol class="pg-numbered">
-        {project.extra.highlights.map((h) => (
-          <li>{h}</li>
-        ))}
-      </ol>
-      <Artwork art={project.art} frame="none" class="project-extra-text__art" />
-      <p class="pg-note">more on the next page →</p>
     </div>
   )
 }

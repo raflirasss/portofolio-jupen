@@ -9,7 +9,7 @@
  */
 import type { IllustrationName } from "../components/art/illustrations";
 
-export type BookId = "portfolio" | "about" | "art" | "contact";
+export type BookId = "portfolio" | "about" | "art";
 
 /** Cover / spine tone. Each maps to a monochrome palette in `variables.css`. */
 export type BookTone = "ink" | "charcoal" | "slate" | "stone" | "paper";
@@ -19,9 +19,6 @@ export type SpinePattern = "bands" | "dots" | "stripes" | "stars" | "plain";
 
 /** A purely decorative book on the shelf (not clickable). */
 export interface DecorBook {
-  /** Optional spine title; leave out for a blank spine. */
-  title?: string;
-  volume?: string;
   tone: BookTone;
   pattern: SpinePattern;
   height: number;
@@ -54,27 +51,29 @@ export interface BookConfig {
 export const siteConfig = {
   /* ── Meta ─────────────────────────────────────────────────────────────── */
   meta: {
-    title: "Audrey Juventia — Game Designer & Artist",
+    title: "Audrey Juventia — Game Artist",
     description:
       "An interactive storybook portfolio. Pull a book from the shelf to explore games, art and stories.",
     lang: "en",
     /** Path inside /public used for social sharing previews. */
     ogImage: "/og-image.svg",
-    themeColor: "#F3F0EA",
+    themeColor: "#E0DDF0",
   },
 
   /* ── Owner ────────────────────────────────────────────────────────────── */
   owner: {
     name: "Audrey Juventia",
-    role: "Game Designer & Artist",
+    role: "Game Artist",
     /** Short line shown under your name on the bookshelf. */
-    tagline: "Live ops, 3D worlds & game art — bound in five small books.",
+    tagline: "Based in Melbourne, Australia",
     location: "Melbourne, Australia",
     email: "audreyjuventia@outlook.com",
     /** CV / résumé file in /public. Set to "" to hide every "Download CV" button. */
     cv: "/cv/Audrey-Juventia-CV.pdf",
     /** "View more" link shown after the last project and on the Portfolio / Art end pages. "" hides it. */
     moreWork: { label: "View more on Behance", url: "https://www.behance.net/audreyjuventiaa" },
+    /** "View more" link on the Concept Arts end page. */
+    moreArt: { label: "View more on Instagram", url: "https://www.instagram.com/odd.index/" },
   },
 
   /* ── Social links ─────────────────────────────────────────────────────────
@@ -93,19 +92,21 @@ export const siteConfig = {
 
   /* ── Theme ────────────────────────────────────────────────────────────── */
   theme: {
-    background: "#F3F0EA", // wall / page background
-    paper: "#FBFAF6", // book pages
-    paperShade: "#EFEBE2", // page gutters, endpapers
-    foreground: "#1B1A18", // ink
-    muted: "#6E6A63", // secondary text
-    line: "#2A2825", // outlines
-    /**
-     * A single, very subtle accent. Try "#C9A646" (mustard), "#7D93A8"
-     * (dusty blue) or "#B0675C" (desaturated red).
+    /*
+     * Palette: #E0DDF0 lavender · #8180A0 dusk violet · #C8BCB9 rose taupe ·
+     * #7E5947 walnut. Book covers, wood and greys are tuned to these in
+     * src/styles/variables.css.
      */
-    accent: "#C2A14E",
+    background: "#E0DDF0", // wall / page background (lavender)
+    paper: "#FAF8FC", // book pages (lavender-tinted white)
+    paperShade: "#ECE6EC", // page gutters, endpapers (lavender × rose taupe)
+    foreground: "#2D2433", // ink (deep plum)
+    muted: "#68668A", // secondary text (dusk violet, darkened for legibility)
+    line: "#3A2E3D", // outlines
+    /** The one warm accent: walnut. */
+    accent: "#7E5947",
     /** 0 = no accent at all, 1 = full strength. */
-    accentStrength: 0.85,
+    accentStrength: 1,
     /** Strength of the paper grain overlay (0 – 0.2). */
     grain: 0.06,
   },
@@ -218,6 +219,7 @@ export const siteConfig = {
     contents: "Contents",
     exLibris: "Ex Libris",
     theEnd: "The End",
+    contactKicker: "say hello",
     keyboardHint: "Use ← → to turn pages, Esc to close",
     loading: "Sharpening pencils…",
   },
@@ -249,36 +251,24 @@ export const siteConfig = {
     },
     {
       id: "art",
-      title: "Art & Illustration",
-      subtitle: "Sketchbook & gallery",
+      title: "Concept Arts",
+      subtitle: "Creatures, mechs & characters",
       volume: "III",
-      tone: "stone",
+      tone: "slate",
       pattern: "stars",
       height: 1,
       thickness: 1.35,
       coverArt: "inkpot",
     },
-    {
-      id: "contact",
-      title: "Contact",
-      subtitle: "Letters welcome",
-      volume: "IV",
-      tone: "slate",
-      pattern: "plain",
-      height: 0.8,
-      thickness: 0.8,
-      coverArt: "envelope",
-      lean: 2,
-    },
   ] satisfies BookConfig[],
 
   /* ── Decorative books (just for show — not clickable) ───────────────── */
   decorBooks: [
-    { title: "Sketches", tone: "slate", pattern: "dots", height: 0.78, thickness: 0.7, side: "left" },
-    { tone: "paper", pattern: "plain", height: 0.86, thickness: 0.55, lean: -2.5, side: "left" },
-    { title: "Field Notes", tone: "charcoal", pattern: "stripes", height: 0.9, thickness: 0.8, side: "right" },
-    { tone: "stone", pattern: "bands", height: 0.72, thickness: 0.6, side: "right" },
-    { title: "Lore", volume: "✦", tone: "ink", pattern: "stars", height: 0.82, thickness: 0.65, lean: 3, side: "right" },
+    // Kept on the right so the "pick a book" arrow always points at a real book.
+    { tone: "charcoal", pattern: "stripes", height: 0.9, thickness: 0.8, side: "right" },
+    { tone: "stone", pattern: "bands", height: 0.74, thickness: 0.6, side: "right" },
+    { tone: "paper", pattern: "plain", height: 0.84, thickness: 0.55, lean: 2.5, side: "right" },
+    { tone: "stone", pattern: "dots", height: 0.8, thickness: 0.65, side: "right" },
   ] satisfies DecorBook[],
 };
 

@@ -4,7 +4,7 @@ import { defineConfig } from "astro/config";
 // Static output — deploys to Vercel (or any static host) with zero configuration.
 export default defineConfig({
   // Set this to your production URL for correct canonical / Open Graph tags.
-  site: "https://your-portfolio.vercel.app",
+  site: "https://portofolio-jupen.vercel.app",
   output: "static",
   build: {
     inlineStylesheets: "auto",

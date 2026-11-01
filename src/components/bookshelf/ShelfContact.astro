@@ -1,0 +1,48 @@
+---
+/**
+ * Contact strip under the bookshelf: email (with copy), social links and the
+ * CV download. Everything comes from siteConfig.owner / siteConfig.social.
+ */
+import { siteConfig } from "../../config/site.config";
+import Icon from "../ui/Icon.astro";
+import CvButton from "../ui/CvButton.astro";
+import type { IconName } from "../ui/icons";
+
+const { owner, social, labels } = siteConfig;
+// The email already has its own pill, so skip any mailto entry in `social`.
+const links = social.filter((s) => !s.url.startsWith("mailto:"));
+---
+
+<section class="shelf-contact" aria-label="Contact" data-reveal>
+  <span class="shelf-contact__kicker">{labels.contactKicker}</span>
+  <div class="shelf-contact__mail-group">
+    <a class="shelf-contact__mail" href={`mailto:${owner.email}`}>
+      <Icon name="mail" size="1.15em" />
+      <span>{owner.email}</span>
+    </a>
+    <button type="button" class="shelf-contact__copy" data-copy={owner.email} aria-label="Copy email address">
+      <Icon name="copy" class="shelf-contact__copy-icon" />
+      <Icon name="check" class="shelf-contact__check-icon" />
+      <span class="shelf-contact__copied" data-copy-msg aria-live="polite"></span>
+    </button>
+  </div>
+  <ul class="shelf-contact__social" aria-label="Social links">
+    {
+      links.map((s) => (
+        <li>
+          <a
+            href={s.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="ink-button ink-button--round shelf-contact__icon"
+            aria-label={`${s.label} — ${s.handle}`}
+            title={`${s.label} · ${s.handle}`}
+          >
+            <Icon name={s.icon as IconName} size="20" />
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+  <CvButton />
+</section>

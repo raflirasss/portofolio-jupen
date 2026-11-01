@@ -12,12 +12,10 @@ import { siteConfig, type BookConfig, type BookId } from "../config/site.config"
 import { portfolio } from "../content/portfolio";
 import { about } from "../content/about";
 import { artwork } from "../content/artwork";
-import { contact } from "../content/contact";
 import type {
   AboutContent,
   Art,
   ArtCategory,
-  ContactContent,
   Project,
 } from "../content/types";
 
@@ -38,16 +36,11 @@ export type PageBody =
   | { kind: "chapter"; chapter: ChapterData; volume: string }
   | { kind: "project-art"; project: Project; projectIndex: number; total: number }
   | { kind: "project-info"; project: Project; projectIndex: number; prev?: Neighbour; next?: Neighbour }
-  | { kind: "project-extra-text"; project: Project }
-  | { kind: "project-extra-art"; project: Project }
   | { kind: "profile"; profile: AboutContent["profile"] }
   | { kind: "text"; kicker: string; title: string; paragraphs: string[]; note?: string; quote?: string; art?: Art }
   | { kind: "skills"; skills: AboutContent["skills"] }
   | { kind: "interests"; interests: AboutContent["interests"] }
   | { kind: "gallery"; category: ArtCategory; startIndex: number }
-  | { kind: "letter"; letter: ContactContent["letter"] }
-  | { kind: "contact-links"; links: ContactContent["links"] }
-  | { kind: "availability"; availability: ContactContent["availability"] }
   | { kind: "doodles" }
   | { kind: "end"; book: BookConfig };
 
@@ -82,9 +75,6 @@ function portfolioPages(): Draft[] {
         next: next && { title: next.title, anchor: next.slug },
       },
     );
-    if (project.extra) {
-      pages.push({ kind: "project-extra-art", project }, { kind: "project-extra-text", project });
-    }
   });
   return pages;
 }
@@ -111,19 +101,10 @@ function artPages(): Draft[] {
   return pages;
 }
 
-function contactPages(): Draft[] {
-  return [
-    { kind: "letter", letter: contact.letter, anchor: "letter", toc: "A letter" },
-    { kind: "contact-links", links: contact.links, anchor: "links", toc: contact.links.title },
-    { kind: "availability", availability: contact.availability, anchor: "availability", toc: contact.availability.title },
-  ];
-}
-
 const recipes: Record<BookId, () => Draft[]> = {
   portfolio: portfolioPages,
   about: aboutPages,
   art: artPages,
-  contact: contactPages,
 };
 
 /* ── Assembly ───────────────────────────────────────────────────────────── */

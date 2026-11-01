@@ -5,15 +5,18 @@ import BookSpine from "../book/BookSpine.astro";
 
 interface Props {
   book: DecorBook;
+  /** Position among the decorative books (used to thin them out on smaller screens). */
+  index: number;
 }
 
-const { book } = Astro.props;
+const { book, index } = Astro.props;
 ---
 
 <li
   class="shelf-book shelf-book--decor"
   style={`--h:${book.height};--t:${book.thickness};--lean:${book.lean ?? 0}deg`}
   data-shelf-book
+  data-decor={index}
   aria-hidden="true"
 >
   <span class="shelf-book__body">

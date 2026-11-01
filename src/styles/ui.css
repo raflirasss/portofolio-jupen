@@ -59,10 +59,11 @@ html.js .loader {
 }
 
 /* ── Sound toggle ──────────────────────────────────────────────────────── */
+/* Top-right corner, clear of the contact strip under the shelf */
 .sound-toggle {
   position: fixed;
+  top: clamp(10px, 2vh, 18px);
   right: var(--gutter);
-  bottom: clamp(10px, 2.2vh, 20px);
   z-index: var(--z-ui);
   --size: 42px;
 }
@@ -79,7 +80,6 @@ html.js .loader {
 /* In the book view the toggle moves to the top bar's empty corner */
 html.book-open .sound-toggle {
   top: calc((var(--chrome-top) - var(--size)) / 2);
-  bottom: auto;
 }
 @media (max-height: 520px) and (orientation: landscape) {
   html.book-open .sound-toggle {
@@ -219,7 +219,7 @@ html.has-ink-cursor .cursor {
   place-items: center;
 }
 .lightbox::backdrop {
-  background: rgb(27 26 24 / 0.55);
+  background: rgb(var(--shadow-rgb) / 0.55);
   backdrop-filter: blur(3px);
 }
 

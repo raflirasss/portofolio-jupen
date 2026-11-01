@@ -13,7 +13,7 @@ export const about: AboutContent = {
   profile: {
     greeting: "Hello, I'm",
     intro:
-      "A game designer and 3D artist who loves building worlds people want to come back to — from live-ops seasons and in-game economies to props, concept art and UI icons.",
+      "A game artist who loves building worlds people want to come back to — from live-ops seasons and in-game economies to props, concept art and UI icons.",
     portrait: { image: portrait, alt: "Photo of Audrey Juventia", focus: "52% 30%" },
     facts: [
       { label: "Based in", value: "Melbourne, Australia" },

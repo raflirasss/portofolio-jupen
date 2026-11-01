@@ -17,7 +17,6 @@ import DoodlesPage from "../pages/DoodlesPage.astro";
 import EndPage from "../pages/EndPage.astro";
 import ProjectPage from "../portfolio/ProjectPage.astro";
 import ArtworkGallery from "../portfolio/ArtworkGallery.astro";
-import ContactPage from "../portfolio/ContactPage.astro";
 
 interface Props {
   pages: PageSpec[];
@@ -37,8 +36,6 @@ const { pages } = Astro.props;
       {page.kind === "project-info" && (
         <ProjectPage variant="info" project={page.project} index={page.projectIndex} prev={page.prev} next={page.next} />
       )}
-      {page.kind === "project-extra-art" && <ProjectPage variant="extra-art" project={page.project} />}
-      {page.kind === "project-extra-text" && <ProjectPage variant="extra-text" project={page.project} />}
       {page.kind === "profile" && <ProfilePage profile={page.profile} />}
       {page.kind === "text" && (
         <TextPage
@@ -55,9 +52,6 @@ const { pages } = Astro.props;
       {page.kind === "gallery" && (
         <ArtworkGallery category={page.category} number={artwork.categories.indexOf(page.category) + 1} />
       )}
-      {page.kind === "letter" && <ContactPage variant="letter" letter={page.letter} />}
-      {page.kind === "contact-links" && <ContactPage variant="links" links={page.links} />}
-      {page.kind === "availability" && <ContactPage variant="availability" availability={page.availability} />}
       {page.kind === "doodles" && <DoodlesPage />}
       {page.kind === "end" && <EndPage book={page.book} />}
     </Page>

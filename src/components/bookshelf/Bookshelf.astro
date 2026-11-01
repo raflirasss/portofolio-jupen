@@ -3,7 +3,7 @@ import { siteConfig } from "../../config/site.config";
 import BookItem from "./BookItem.astro";
 import DecorBookItem from "./DecorBookItem.astro";
 import ShelfDecoration from "./ShelfDecoration.astro";
-import CvButton from "../ui/CvButton.astro";
+import ShelfContact from "./ShelfContact.astro";
 
 const { owner, books, decorBooks, features, labels } = siteConfig;
 const decor = (side: "left" | "right") => decorBooks.filter((d) => d.side === side);
@@ -21,7 +21,6 @@ const year = new Date().getFullYear();
         <span class="scene__rule" aria-hidden="true"></span>
       </p>
       <p class="scene__tagline" data-reveal>{owner.tagline}</p>
-      <div class="scene__cta" data-reveal><CvButton /></div>
     </header>
 
     <div class="scene__stage">
@@ -29,13 +28,13 @@ const year = new Date().getFullYear();
         features.shelfDecorations && (
           <>
             <ShelfDecoration type="stars" class="wall-deco wall-deco--stars" />
-            <ShelfDecoration type="frame" class="wall-deco wall-deco--frame" />
             <ShelfDecoration type="note" class="wall-deco wall-deco--note" />
           </>
         )
       }
 
       <div class="shelf" data-shelf>
+        {features.shelfDecorations && <ShelfDecoration type="frame" class="wall-deco wall-deco--frame" />}
         <p class="scene__hint" data-hint>
           <span class="hand">{labels.shelfHint}</span>
           <svg viewBox="0 0 80 50" class="scene__hint-arrow" aria-hidden="true">
@@ -54,9 +53,9 @@ const year = new Date().getFullYear();
           }
 
           <ul class="shelf__books" aria-label="Books" data-shelf-books>
-            {decor("left").map((book) => <DecorBookItem book={book} />)}
+            {decor("left").map((book, i) => <DecorBookItem book={book} index={i} />)}
             {books.map((book, i) => <BookItem book={book} index={i} />)}
-            {decor("right").map((book) => <DecorBookItem book={book} />)}
+            {decor("right").map((book, i) => <DecorBookItem book={book} index={i} />)}
           </ul>
 
           {
@@ -84,8 +83,8 @@ const year = new Date().getFullYear();
     </div>
 
     <footer class="scene__footer" data-shelf-footer>
-      <span>© {year} {owner.name}</span>
-      <span class="scene__footer-keys" aria-hidden="true"><kbd>←</kbd><kbd>→</kbd> browse · <kbd>↵</kbd> open</span>
+      <ShelfContact />
+      <span class="scene__copyright">© {year} {owner.name}</span>
     </footer>
   </div>
 </section>

@@ -45,16 +45,18 @@ Everything you are likely to change lives in **two places**:
 | What | Where |
 | --- | --- |
 | Name, role, email, social links, colours, fonts, animation timing, book titles/colours, feature switches, UI labels | `src/config/site.config.ts` |
-| Portfolio content (projects, bio, game designs, artwork, contact letter) | `src/content/*.ts` |
+| Portfolio content (projects, bio, concept art) | `src/content/*.ts` |
 
 ### 1. Your details — `src/config/site.config.ts`
 
 - `owner` — name, role, tagline, email.
 - `social` — add/remove/reorder links. `icon` is one of: `artstation`, `behance`,
   `linkedin`, `instagram`, `itch`, `x`, `bluesky`, `github`, `youtube`, `mail`, `link`.
-- `theme` — background, paper and ink colours. `accent` is the one subtle colour
-  (mustard by default — try `#7D93A8` dusty blue or `#B0675C` muted red);
-  `accentStrength: 0` turns it off entirely.
+- `theme` — background, paper, ink, muted text and the walnut `accent`
+  (`accentStrength: 0` turns the accent off). The current palette is
+  `#E0DDF0` lavender · `#8180A0` dusk violet · `#C8BCB9` rose taupe ·
+  `#7E5947` walnut; book cover tones, wood and the grey scale built from it
+  live in `src/styles/variables.css`.
 - `typography` — Google Fonts URL plus the three font stacks (heading, body,
   hand-written). `pageTextScale` enlarges/shrinks all text inside the book.
 - `animation` — durations (seconds) and GSAP eases for the shelf entrance,
@@ -74,20 +76,26 @@ Everything you are likely to change lives in **two places**:
 - `navigation` — URL hash (`#/portfolio/4` deep links + Back button), keyboard,
   swipe, click-the-page-edge, first-visit hint.
 - `features` — loading screen, lightbox, shelf decorations, the cat.
-- `books` — the five books on the shelf: title, subtitle, volume numeral, cover
+- `books` — the clickable books on the shelf: title, subtitle, volume numeral, cover
   `tone` (`ink`, `charcoal`, `slate`, `stone`, `paper`), spine `pattern`
   (`bands`, `dots`, `stripes`, `stars`, `plain`), height, thickness, lean, and
   the cover illustration.
+- `decorBooks` — untitled, non-clickable books that just dress the shelf
+  (tone, pattern, height, thickness, lean).
+- `owner.moreWork` / `owner.moreArt` — the "View more on Behance / Instagram"
+  links at the end of the Portfolio and Concept Arts books.
 
 ### 2. Your work — `src/content/`
 
 | File | Book | Notes |
 | --- | --- | --- |
-| `portfolio.ts` | I · Portfolio | Each project = artwork page + detail page. Add `extra` for a "behind the scenes" spread. |
+| `portfolio.ts` | I · Portfolio | One spread per project: artwork page + detail page (one image each). |
 | `about.ts` | II · About Me | Profile, biography, philosophy, skills (1–5 dots), interests. |
-| `game-design.ts` | III · Game Design | Each game = 2 spreads: pitch, core loop & mechanics, design doc & decisions, prototype & lessons. Plus your development process. |
-| `artwork.ts` | IV · Art & Illustration | One gallery page per category; `layout` is `feature` (1), `pair` (2), `trio` (3) or `grid` (4). |
-| `contact.ts` | V · Contact | The letter, links page intro and availability. |
+| `artwork.ts` | III · Concept Arts | One gallery page per category; `layout` is `feature` (1), `pair` (2), `trio` (3) or `grid` (4). |
+
+Contact isn't a book: the strip under the shelf (email with copy button,
+social icons, Download CV) is built from `owner.email`, `owner.cv` and
+`social` in the config.
 
 Pages are generated from this data (`src/lib/books.ts`): add a project and the
 book grows, the contents page and page numbers update, and the book always ends
@@ -125,11 +133,11 @@ src/
 │   ├── books.ts               ← content → ordered pages per book
 │   └── theme.ts               ← config → CSS custom properties
 ├── components/
-│   ├── bookshelf/             ← Bookshelf, BookItem (spine button), ShelfDecoration
+│   ├── bookshelf/             ← Bookshelf, BookItem (spine button), DecorBookItem, ShelfContact, ShelfDecoration
 │   ├── book/                  ← BookViewer (the book), BookCover, BookSpine,
 │   │                            BookPages, Page, PageFlip (the leaf), BookNavigation
 │   ├── pages/                 ← generic page layouts (contents, chapter, text, …)
-│   ├── portfolio/             ← ProjectPage, GameDesignPage, ArtworkGallery, ContactPage, LoopDiagram
+│   ├── portfolio/             ← ProjectPage, ArtworkGallery
 │   ├── art/                   ← Illustration (SVG library), Artwork (image/illustration frame), SvgDefs
 │   └── ui/                    ← CustomCursor, LoadingScreen, SoundToggle, Lightbox, Icon
 ├── scripts/                   ← the only client-side JavaScript

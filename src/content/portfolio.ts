@@ -1,22 +1,15 @@
 /**
  * BOOK I — PORTFOLIO
  * Projects from Audrey's Behance (https://www.behance.net/audreyjuventiaa).
+ * One spread per project (artwork page + detail page), one image each.
  * Images live in src/assets/behance/ and are optimised by Astro at build time.
  */
 import type { PortfolioContent } from "./types";
 
 import locker1 from "../assets/behance/locker-1.webp";
-import locker2 from "../assets/behance/locker-2.webp";
-import locker3 from "../assets/behance/locker-3.webp";
 import shibuya1 from "../assets/behance/shibuya-1.webp";
-import shibuya2 from "../assets/behance/shibuya-2.webp";
-import shibuya3 from "../assets/behance/shibuya-3.webp";
-import tank1 from "../assets/behance/tank-1.webp";
 import tank2 from "../assets/behance/tank-2.webp";
-import tank3 from "../assets/behance/tank-3.webp";
 import tlou1 from "../assets/behance/tlou-1.webp";
-import tlou2 from "../assets/behance/tlou-2.webp";
-import tlou3 from "../assets/behance/tlou-3.webp";
 
 export const portfolio: PortfolioContent = {
   chapter: {
@@ -42,18 +35,6 @@ export const portfolio: PortfolioContent = {
       tools: ["Blender", "Photoshop"],
       art: { image: locker1, alt: "Collage of renders from the Crime Scene Locker Room diorama" },
       links: [{ label: "View on Behance", url: "https://www.behance.net/gallery/210727267/2024-Crime-Scene-Locker-Room-Diorama" }],
-      extra: {
-        heading: "Behind the scenes",
-        highlights: [
-          "Started from test-and-trial blockouts before settling on a theme.",
-          "Picked a crime-scene story to make an everyday room more memorable.",
-          "Iterated on colour from feedback: dark lockers became denim blue.",
-        ],
-        images: [
-          { image: locker2, alt: "Wireframe break-down of the locker room diorama", caption: "Break-down shot" },
-          { image: locker3, alt: "Beauty shot of the locker room crime scene", caption: "Beauty shot" },
-        ],
-      },
     },
     {
       slug: "shibuya-cyberpunk",
@@ -69,18 +50,6 @@ export const portfolio: PortfolioContent = {
       tools: ["Unreal Engine 5", "Blender", "Substance 3D Painter", "Substance 3D Stager", "Illustrator", "Premiere Pro"],
       art: { image: shibuya1, alt: "Neon-lit cyberpunk street at night in Unreal Engine 5" },
       links: [{ label: "View on Behance", url: "https://www.behance.net/gallery/188132879/2024-UE5-Jujutsu-Kaisen-Inspo-Shibuya-Cyberpunk" }],
-      extra: {
-        heading: "Behind the scenes",
-        highlights: [
-          "Inspired by Jujutsu Kaisen's Shibuya, pushed towards a cyberpunk palette.",
-          "Modelled in Blender, textured in Substance 3D Painter.",
-          "Lit, staged and rendered in Unreal Engine 5.",
-        ],
-        images: [
-          { image: shibuya2, alt: "Neon signs and billboards glowing in the Shibuya scene", caption: "Neon & signage" },
-          { image: shibuya3, alt: "Street-level view of the Shibuya-inspired scene", caption: "Street level" },
-        ],
-      },
     },
     {
       slug: "tankazooka",
@@ -96,18 +65,6 @@ export const portfolio: PortfolioContent = {
       tools: ["Procreate", "Clip Studio Paint", "Unity 2D"],
       art: { image: tank2, alt: "Tankazooka environment concept: a red barn under a sunset sky" },
       links: [{ label: "View on Behance", url: "https://www.behance.net/gallery/181900323/2023-Tankazooka-Game-Concept-Art" }],
-      extra: {
-        heading: "Behind the scenes",
-        highlights: [
-          "Explored many tank silhouettes in quick line sketches first.",
-          "Built side-view environments with a warm, readable palette.",
-          "Prepared the art for use in Unity 2D.",
-        ],
-        images: [
-          { image: tank1, alt: "Line sketches of tank designs for Tankazooka", caption: "Tank sketches" },
-          { image: tank3, alt: "Tankazooka town environment concept", caption: "Town environment" },
-        ],
-      },
     },
     {
       slug: "last-of-us-scene",
@@ -123,18 +80,6 @@ export const portfolio: PortfolioContent = {
       tools: ["Unreal Engine 5", "Blender", "Sony Vegas Pro"],
       art: { image: tlou1, alt: "Overgrown forest scene with abandoned props in Unreal Engine 5" },
       links: [{ label: "View on Behance", url: "https://www.behance.net/gallery/177530253/2023-UE5-The-Last-Of-Us-Inspired-Scene" }],
-      extra: {
-        heading: "Behind the scenes",
-        highlights: [
-          "Inspired by the overgrown, post-apocalyptic world of The Last of Us.",
-          "Props modelled in Blender and dressed into a UE5 forest.",
-          "Final shots and video edited in Sony Vegas Pro.",
-        ],
-        images: [
-          { image: tlou2, alt: "Close-up of a bucket and props on the forest floor", caption: "Prop close-up" },
-          { image: tlou3, alt: "Wide shot of the forest clearing", caption: "Wide shot" },
-        ],
-      },
     },
   ],
 };

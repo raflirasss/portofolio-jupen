@@ -1,24 +1,12 @@
 /**
- * BOOK IV — ART & ILLUSTRATION
- * Artwork from Audrey's Behance (https://www.behance.net/audreyjuventiaa)
- * and Instagram (https://www.instagram.com/odd.index/).
+ * BOOK III — CONCEPT ARTS
+ * Concept art from Audrey's Instagram (https://www.instagram.com/odd.index/).
+ * Swap any `image` for your own file in src/assets/ whenever you like.
  * Each category becomes one gallery page.
  * Layouts: "feature" (1 piece) · "pair" (2) · "trio" (3) · "grid" (up to 4)
  */
 import type { ArtContent } from "./types";
 
-import ki1 from "../assets/behance/ki-1.webp";
-import ki2 from "../assets/behance/ki-2.webp";
-import ki3 from "../assets/behance/ki-3.webp";
-import scifi1 from "../assets/behance/scifi-1.webp";
-import scifi2 from "../assets/behance/scifi-2.webp";
-import scifi3 from "../assets/behance/scifi-3.webp";
-import tank1 from "../assets/behance/tank-1.webp";
-import tank3 from "../assets/behance/tank-3.webp";
-import locker2 from "../assets/behance/locker-2.webp";
-import locker3 from "../assets/behance/locker-3.webp";
-import shibuya2 from "../assets/behance/shibuya-2.webp";
-import tlou2 from "../assets/behance/tlou-2.webp";
 import ig1 from "../assets/instagram/ig-1.jpg";
 import ig2 from "../assets/instagram/ig-2.jpg";
 import ig3 from "../assets/instagram/ig-3.jpg";
@@ -35,23 +23,12 @@ import ig12 from "../assets/instagram/ig-12.jpg";
 export const artwork: ArtContent = {
   chapter: {
     kicker: "Chapter Three",
-    title: "Sketchbook & Gallery",
-    intro: "Characters, concepts and 3D scenes. Tap any piece to see it larger.",
+    title: "Concept Arts",
+    intro: "Characters, creatures and machines from the sketchbook. Tap any piece to see it larger.",
     art: { illustration: "inkpot", alt: "A hand-drawn ink pot with a quill" },
   },
 
   categories: [
-    {
-      id: "characters",
-      title: "Character Design",
-      intro: "Characters for games and personal projects, from first sketch to final sheet.",
-      layout: "trio",
-      items: [
-        { title: "KI", medium: "Photoshop · Clip Studio Paint", year: "2021", image: ki1, alt: "KI, a round yellow bird character" },
-        { title: "Sci-Fi Characters", medium: "Procreate · Lil Indie Games", year: "2024", image: scifi1, alt: "Line sketches of sci-fi characters" },
-        { title: "KI — model sheet", medium: "Paint Tool SAI · Illustrator", year: "2021", image: ki3, alt: "KI character sheet with expressions and weapons" },
-      ],
-    },
     {
       id: "character-sketches",
       title: "Character Sketches",
@@ -61,16 +38,6 @@ export const artwork: ArtContent = {
         { title: "Swordsman", year: "2026", image: ig4, alt: "Ink drawing of a dark-haired swordsman in a dynamic pose" },
         { title: "Portrait studies", year: "2025", image: ig5, alt: "Greyscale portrait studies of a young man with reference photos" },
         { title: "Agent turnaround", year: "2025", image: ig6, alt: "Character sheet of a woman in a tactical suit with head studies" },
-      ],
-    },
-    {
-      id: "concept",
-      title: "Concept Art",
-      intro: "Exploring shapes and silhouettes before anything gets built.",
-      layout: "pair",
-      items: [
-        { title: "Tankazooka — tanks", medium: "Procreate", year: "2023", image: tank1, alt: "Tank design sketches for Tankazooka" },
-        { title: "Sci-Fi crew sketches", medium: "Procreate", year: "2024", image: scifi2, alt: "Sci-fi character concept sketches" },
       ],
     },
     {
@@ -104,43 +71,6 @@ export const artwork: ArtContent = {
       items: [
         { title: "Singing fish", year: "2026", image: ig1, alt: "Painting of a fish sculpture singing into a microphone" },
         { title: "Koi", year: "2026", image: ig3, alt: "Painting of two koi fish in green water" },
-      ],
-    },
-    {
-      id: "environments",
-      title: "3D Environments",
-      layout: "feature",
-      items: [
-        {
-          title: "The Last of Us Scene",
-          medium: "Unreal Engine 5 · Blender",
-          year: "2023",
-          image: tlou2,
-          alt: "Abandoned props on an overgrown forest floor",
-          caption: "Prop close-up from an Unreal Engine 5 forest inspired by The Last of Us.",
-        },
-      ],
-    },
-    {
-      id: "sketches",
-      title: "Sketches & Sheets",
-      intro: "Expression studies, turnarounds and work-in-progress.",
-      layout: "grid",
-      items: [
-        { title: "KI expressions", medium: "Clip Studio Paint", year: "2021", image: ki2, alt: "Grid of KI character expressions" },
-        { title: "Sci-Fi poses", medium: "Procreate", year: "2024", image: scifi3, alt: "Sci-fi character pose sketches" },
-        { title: "Locker room wireframe", medium: "Blender", year: "2024", image: locker2, alt: "Wireframe of the locker room diorama" },
-        { title: "Tankazooka town", medium: "Clip Studio Paint", year: "2023", image: tank3, alt: "Tankazooka town environment" },
-      ],
-    },
-    {
-      id: "renders",
-      title: "Lighting & Mood",
-      intro: "Playing with light, colour and atmosphere in 3D.",
-      layout: "pair",
-      items: [
-        { title: "Shibuya neon", medium: "Unreal Engine 5", year: "2024", image: shibuya2, alt: "Neon signage in the Shibuya cyberpunk scene" },
-        { title: "Crime scene", medium: "Blender", year: "2024", image: locker3, alt: "Moody render of the crime-scene locker room" },
       ],
     },
   ],

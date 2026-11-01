@@ -1,10 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
-  <rect width="1200" height="630" fill="#F3F0EA"/>
-  <g fill="none" stroke="#1B1A18" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M600 210 C540 170 450 160 380 176 V470 C450 456 540 462 600 500 C660 462 750 456 820 470 V176 C750 160 660 170 600 210 Z" fill="#FBFAF6"/>
+  <rect width="1200" height="630" fill="#E0DDF0"/>
+  <g fill="none" stroke="#2D2433" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M600 210 C540 170 450 160 380 176 V470 C450 456 540 462 600 500 C660 462 750 456 820 470 V176 C750 160 660 170 600 210 Z" fill="#FAF8FC"/>
     <path d="M600 210 V500"/>
     <path d="M420 230 C470 222 530 226 570 244 M420 270 C470 262 530 266 570 284 M630 244 C670 226 730 222 780 230 M630 284 C670 266 730 262 780 270" stroke-width="3"/>
   </g>
-  <text x="600" y="110" text-anchor="middle" font-family="Georgia, serif" font-size="64" font-weight="600" fill="#1B1A18">Audrey Juventia</text>
-  <text x="600" y="570" text-anchor="middle" font-family="Georgia, serif" font-style="italic" font-size="32" fill="#6E6A63">Game Designer &amp; Artist — an interactive storybook portfolio</text>
+  <text x="600" y="110" text-anchor="middle" font-family="Georgia, serif" font-size="64" font-weight="600" fill="#2D2433">Audrey Juventia</text>
+  <text x="600" y="570" text-anchor="middle" font-family="Georgia, serif" font-style="italic" font-size="32" fill="#68668A">Game Artist · Melbourne — an interactive storybook portfolio</text>
 </svg>

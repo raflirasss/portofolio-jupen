@@ -5,14 +5,14 @@
  */
 :root {
   /* Defaults (overridden by site.config.ts) */
-  --color-bg: #f3f0ea;
-  --color-paper: #fbfaf6;
-  --color-paper-shade: #efebe2;
-  --color-ink: #1b1a18;
-  --color-muted: #6e6a63;
-  --color-line: #2a2825;
-  --accent-base: #c2a14e;
-  --accent-strength: 0.85;
+  --color-bg: #e0ddf0;
+  --color-paper: #faf8fc;
+  --color-paper-shade: #ece6ec;
+  --color-ink: #2d2433;
+  --color-muted: #68668a;
+  --color-line: #3a2e3d;
+  --accent-base: #7e5947;
+  --accent-strength: 1;
   --grain-opacity: 0.075;
   --font-heading: Georgia, serif;
   --font-body: system-ui, sans-serif;
@@ -24,20 +24,31 @@
   --cols: 2;
 
   /* Greys */
-  --gray-50: #f7f5f0;
-  --gray-100: #ebe7df;
-  --gray-200: #d8d3c9;
-  --gray-300: #bdb7ab;
-  --gray-400: #9b958a;
-  --gray-500: #7a756c;
-  --gray-600: #5b5750;
-  --gray-700: #403d38;
-  --gray-800: #2b2926;
-  --gray-900: #1b1a18;
+  /* Lavender → plum neutrals built from the palette */
+  --gray-50: #f4f2f9;
+  --gray-100: #eae6f2;
+  --gray-200: #d9d4e6;
+  --gray-300: #c3bdd3;
+  --gray-400: #a29eba;
+  --gray-500: #8180a0;
+  --gray-600: #66637f;
+  --gray-700: #4e4a62;
+  --gray-800: #3a3448;
+  --gray-900: #2d2433;
+
+  /* Shadows are tinted plum instead of black (use as rgb(var(--shadow-rgb) / a)) */
+  --shadow-rgb: 45 36 51;
+
+  /* Wood (shelf) — walnut + rose taupe */
+  --wood: #7e5947;
+  --wood-dark: #5e4236;
+  --wood-darker: #4a3329;
+  --wood-top: #d6ccc9;
+  --wood-top-2: #c8bcb9;
 
   /* Accent — mixed towards grey by --accent-strength so it can be dialled down */
   --accent: color-mix(in oklab, var(--accent-base) calc(var(--accent-strength) * 100%), var(--gray-400));
-  --accent-soft: color-mix(in oklab, var(--accent) 45%, var(--color-paper));
+  --accent-soft: color-mix(in oklab, var(--accent) 32%, var(--color-paper));
 
   /* Hand-drawn radii: deliberately uneven */
   --wobble-1: 255px 15px 225px 15px / 15px 225px 15px 255px;
@@ -46,9 +57,9 @@
   --wobble-soft: 40% 60% 55% 45% / 55% 45% 60% 40%;
 
   /* Shadows (warm, soft) */
-  --shadow-1: 0 1px 2px rgb(27 26 24 / 0.12), 0 2px 6px rgb(27 26 24 / 0.08);
-  --shadow-2: 0 4px 10px rgb(27 26 24 / 0.12), 0 12px 28px rgb(27 26 24 / 0.12);
-  --shadow-3: 0 10px 24px rgb(27 26 24 / 0.16), 0 30px 70px rgb(27 26 24 / 0.2);
+  --shadow-1: 0 1px 2px rgb(var(--shadow-rgb) / 0.12), 0 2px 6px rgb(var(--shadow-rgb) / 0.08);
+  --shadow-2: 0 4px 10px rgb(var(--shadow-rgb) / 0.12), 0 12px 28px rgb(var(--shadow-rgb) / 0.12);
+  --shadow-3: 0 10px 24px rgb(var(--shadow-rgb) / 0.16), 0 30px 70px rgb(var(--shadow-rgb) / 0.2);
   --shadow-ink: 3px 3px 0 var(--color-ink);
 
   /* Motion */
@@ -65,8 +76,8 @@
   --z-cursor: 100;
 
   /* Paper grain, generated noise — no image request */
-  --noise: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.1  0 0 0 0 0.09  0 0 0 0 0.08  0 0 0 .9 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
-  --fibres: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='400'><filter id='f'><feTurbulence type='fractalNoise' baseFrequency='.012 .09' numOctaves='2' seed='4' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.2  0 0 0 0 0.18  0 0 0 0 0.15  0 0 0 .35 -.05'/></filter><rect width='100%' height='100%' filter='url(%23f)'/></svg>");
+  --noise: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.18  0 0 0 0 0.14  0 0 0 0 0.2  0 0 0 .9 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  --fibres: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='400'><filter id='f'><feTurbulence type='fractalNoise' baseFrequency='.012 .09' numOctaves='2' seed='4' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.3  0 0 0 0 0.24  0 0 0 0 0.32  0 0 0 .35 -.05'/></filter><rect width='100%' height='100%' filter='url(%23f)'/></svg>");
 
   /* Shell UI sizes */
   --gutter: clamp(14px, 3vw, 40px);
@@ -81,54 +92,56 @@
   }
 }
 
-/* ── Book tones (cover / spine colour schemes) ─────────────────────────── */
+/* ── Book tones (cover / spine colour schemes) ─────────────────────────
+   ink = deep walnut · charcoal = walnut · slate = dusk violet ·
+   stone = rose taupe · paper = pale lavender */
 .tone-ink {
-  --cover: #23211f;
-  --cover-2: #34312d;
-  --cover-ink: #efe8d8;
-  --cover-line: rgb(239 232 216 / 0.55);
-  --ill-ink: #efe8d8;
-  --ill-paper: #3b3833;
-  --ill-shade: #15140f;
+  --cover: #5e4236;
+  --cover-2: #6e4f41;
+  --cover-ink: #f6f1f4;
+  --cover-line: rgb(246 241 244 / 0.55);
+  --ill-ink: #f6f1f4;
+  --ill-paper: #6e4f41;
+  --ill-shade: #3f2b23;
   --hatch: url(#hatch-light);
 }
 .tone-charcoal {
-  --cover: #45423d;
-  --cover-2: #57534d;
-  --cover-ink: #f2ecdf;
-  --cover-line: rgb(242 236 223 / 0.5);
-  --ill-ink: #f2ecdf;
-  --ill-paper: #5b5751;
-  --ill-shade: #2c2a26;
+  --cover: #7e5947;
+  --cover-2: #8c6654;
+  --cover-ink: #f8f2ef;
+  --cover-line: rgb(248 242 239 / 0.55);
+  --ill-ink: #f8f2ef;
+  --ill-paper: #8c6654;
+  --ill-shade: #5e4236;
   --hatch: url(#hatch-light);
 }
 .tone-slate {
-  --cover: #6a6c6e;
-  --cover-2: #7b7d7f;
-  --cover-ink: #f6f2ea;
-  --cover-line: rgb(246 242 234 / 0.55);
-  --ill-ink: #f6f2ea;
-  --ill-paper: #84868a;
-  --ill-shade: #47494b;
+  --cover: #8180a0;
+  --cover-2: #8f8ead;
+  --cover-ink: #f8f6fc;
+  --cover-line: rgb(248 246 252 / 0.6);
+  --ill-ink: #f8f6fc;
+  --ill-paper: #9594b2;
+  --ill-shade: #625f80;
   --hatch: url(#hatch-light);
 }
 .tone-stone {
-  --cover: #bfb8aa;
-  --cover-2: #cdc7ba;
-  --cover-ink: #1f1d1a;
-  --cover-line: rgb(31 29 26 / 0.45);
-  --ill-ink: #1f1d1a;
-  --ill-paper: #ece6da;
-  --ill-shade: #9d968a;
+  --cover: #c8bcb9;
+  --cover-2: #d3c9c6;
+  --cover-ink: #2d2433;
+  --cover-line: rgb(45 36 51 / 0.45);
+  --ill-ink: #2d2433;
+  --ill-paper: #ebe4e2;
+  --ill-shade: #a89794;
   --hatch: url(#hatch);
 }
 .tone-paper {
-  --cover: #e9e3d6;
-  --cover-2: #f3eee4;
-  --cover-ink: #1f1d1a;
-  --cover-line: rgb(31 29 26 / 0.4);
-  --ill-ink: #1f1d1a;
-  --ill-paper: #fbf8f1;
-  --ill-shade: #c9c1b2;
+  --cover: #eeebf7;
+  --cover-2: #f6f4fb;
+  --cover-ink: #2d2433;
+  --cover-line: rgb(45 36 51 / 0.4);
+  --ill-ink: #2d2433;
+  --ill-paper: #fbfafd;
+  --ill-shade: #c3bdd3;
   --hatch: url(#hatch);
 }

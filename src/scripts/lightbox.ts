@@ -77,7 +77,7 @@ export function initCopyButtons(): void {
   document.addEventListener("click", async (e) => {
     const btn = elementOf(e.target)?.closest<HTMLElement>("[data-copy]");
     if (!btn) return;
-    const msg = btn.querySelector<HTMLElement>(".contact-links__copied");
+    const msg = btn.querySelector<HTMLElement>("[data-copy-msg]");
     try {
       await navigator.clipboard.writeText(btn.dataset.copy ?? "");
       btn.classList.add("is-copied");

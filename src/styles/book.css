@@ -37,7 +37,7 @@
   opacity: 0;
   background:
     radial-gradient(ellipse 65% 60% at 50% 48%, rgb(255 255 255 / 0.7), transparent 75%),
-    radial-gradient(ellipse 120% 100% at 50% 50%, transparent 50%, rgb(60 52 40 / 0.18) 100%),
+    radial-gradient(ellipse 120% 100% at 50% 50%, transparent 50%, rgb(var(--shadow-rgb) / 0.18) 100%),
     var(--color-bg);
 }
 .viewer__backdrop::after {
@@ -146,7 +146,7 @@
   position: absolute;
   inset: 3% -2% -5%;
   border-radius: 50%;
-  background: radial-gradient(closest-side, rgb(27 26 24 / 0.3), rgb(27 26 24 / 0.1) 62%, transparent);
+  background: radial-gradient(closest-side, rgb(var(--shadow-rgb) / 0.3), rgb(var(--shadow-rgb) / 0.1) 62%, transparent);
   opacity: 0.9;
   pointer-events: none;
 }
@@ -275,16 +275,16 @@
   background: linear-gradient(
     90deg,
     transparent,
-    rgb(27 26 24 / 0.06) 35%,
-    rgb(27 26 24 / 0.2) 50%,
-    rgb(27 26 24 / 0.06) 65%,
+    rgb(var(--shadow-rgb) / 0.06) 35%,
+    rgb(var(--shadow-rgb) / 0.2) 50%,
+    rgb(var(--shadow-rgb) / 0.06) 65%,
     transparent
   );
 }
 .book[data-mode="single"] .book__gutter {
   left: 0;
   width: 4%;
-  background: linear-gradient(90deg, rgb(27 26 24 / 0.22), rgb(27 26 24 / 0.05) 50%, transparent);
+  background: linear-gradient(90deg, rgb(var(--shadow-rgb) / 0.22), rgb(var(--shadow-rgb) / 0.05) 50%, transparent);
 }
 
 /* Cast shadows of the turning leaf, positioned by page-flip.ts */
@@ -299,11 +299,11 @@
 }
 .book__cast--right {
   left: 0;
-  background: linear-gradient(90deg, rgb(27 26 24 / 0.32), rgb(27 26 24 / 0.1) 35%, transparent);
+  background: linear-gradient(90deg, rgb(var(--shadow-rgb) / 0.32), rgb(var(--shadow-rgb) / 0.1) 35%, transparent);
 }
 .book__cast--left {
   left: 0;
-  background: linear-gradient(270deg, rgb(27 26 24 / 0.32), rgb(27 26 24 / 0.1) 35%, transparent);
+  background: linear-gradient(270deg, rgb(var(--shadow-rgb) / 0.32), rgb(var(--shadow-rgb) / 0.1) 35%, transparent);
 }
 
 /* ── The turning leaf ──────────────────────────────────────────────────── */
@@ -357,16 +357,16 @@
   opacity: 0;
 }
 .leaf__front .leaf__shade {
-  background: linear-gradient(90deg, rgb(27 26 24 / 0.08), transparent 30%, rgb(255 255 255 / 0.18) 62%, rgb(27 26 24 / 0.28));
+  background: linear-gradient(90deg, rgb(var(--shadow-rgb) / 0.08), transparent 30%, rgb(255 255 255 / 0.18) 62%, rgb(var(--shadow-rgb) / 0.28));
 }
 .leaf__back .leaf__shade {
-  background: linear-gradient(270deg, rgb(27 26 24 / 0.08), transparent 30%, rgb(255 255 255 / 0.15) 62%, rgb(27 26 24 / 0.3));
+  background: linear-gradient(270deg, rgb(var(--shadow-rgb) / 0.08), transparent 30%, rgb(255 255 255 / 0.15) 62%, rgb(var(--shadow-rgb) / 0.3));
 }
 .leaf.is-backward .leaf__front .leaf__shade {
-  background: linear-gradient(270deg, rgb(27 26 24 / 0.08), transparent 30%, rgb(255 255 255 / 0.18) 62%, rgb(27 26 24 / 0.28));
+  background: linear-gradient(270deg, rgb(var(--shadow-rgb) / 0.08), transparent 30%, rgb(255 255 255 / 0.18) 62%, rgb(var(--shadow-rgb) / 0.28));
 }
 .leaf.is-backward .leaf__back .leaf__shade {
-  background: linear-gradient(90deg, rgb(27 26 24 / 0.08), transparent 30%, rgb(255 255 255 / 0.15) 62%, rgb(27 26 24 / 0.3));
+  background: linear-gradient(90deg, rgb(var(--shadow-rgb) / 0.08), transparent 30%, rgb(255 255 255 / 0.15) 62%, rgb(var(--shadow-rgb) / 0.3));
 }
 
 /* ── Page-corner curls (hover hint for clickable page edges) ───────────── */
@@ -385,12 +385,12 @@
 .book__curl--next {
   right: 0;
   transform-origin: 100% 100%;
-  background: linear-gradient(315deg, transparent 50%, rgb(27 26 24 / 0.18) 50%, var(--color-paper-shade) 54%, #fff 75%, var(--color-paper-shade));
+  background: linear-gradient(315deg, transparent 50%, rgb(var(--shadow-rgb) / 0.18) 50%, var(--color-paper-shade) 54%, #fff 75%, var(--color-paper-shade));
 }
 .book__curl--prev {
   left: 0;
   transform-origin: 0 100%;
-  background: linear-gradient(45deg, transparent 50%, rgb(27 26 24 / 0.18) 50%, var(--color-paper-shade) 54%, #fff 75%, var(--color-paper-shade));
+  background: linear-gradient(45deg, transparent 50%, rgb(var(--shadow-rgb) / 0.18) 50%, var(--color-paper-shade) 54%, #fff 75%, var(--color-paper-shade));
 }
 .book.is-hover-next .book__curl--next,
 .book.is-hover-prev .book__curl--prev {

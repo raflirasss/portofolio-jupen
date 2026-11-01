@@ -10,8 +10,8 @@ interface Props {
 
 const { book } = Astro.props;
 const { labels } = siteConfig;
-const { moreWork } = siteConfig.owner;
-const showMore = !!moreWork.url && (book.id === "portfolio" || book.id === "art");
+const { moreWork, moreArt } = siteConfig.owner;
+const more = book.id === "portfolio" ? moreWork : book.id === "art" ? moreArt : null;
 ---
 
 <div class="endpage">
@@ -20,9 +20,9 @@ const showMore = !!moreWork.url && (book.id === "portfolio" || book.id === "art"
   <span class="pg-divider" aria-hidden="true"></span>
   <p class="endpage__note">thanks for reading “{book.title}”</p>
   {
-    showMore && (
-      <a href={moreWork.url} target="_blank" rel="noopener noreferrer" class="pg-button pg-button--accent endpage__more">
-        <Icon name="behance" /> {moreWork.label}
+    more?.url && (
+      <a href={more.url} target="_blank" rel="noopener noreferrer" class="pg-button pg-button--accent endpage__more">
+        <Icon name={book.id === "art" ? "instagram" : "behance"} /> {more.label}
       </a>
     )
   }

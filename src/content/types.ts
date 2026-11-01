@@ -42,15 +42,6 @@ export interface Project {
   tools: string[];
   art: Art;
   links?: LinkItem[];
-  /**
-   * Optional "behind the scenes" spread: a few highlights plus up to two
-   * extra images. Leave undefined to skip the extra spread.
-   */
-  extra?: {
-    heading: string;
-    highlights: string[];
-    images: Art[];
-  };
 }
 
 export interface PortfolioContent {
@@ -100,17 +91,4 @@ export interface ArtCategory {
 export interface ArtContent {
   chapter: { kicker: string; title: string; intro: string; art: Art };
   categories: ArtCategory[];
-}
-
-/* ── Book IV: Contact ────────────────────────────────────────────────────── */
-export interface ContactContent {
-  letter: { greeting: string; paragraphs: string[]; signoff: string; signature: string };
-  links: { kicker: string; title: string; intro: string };
-  availability: {
-    kicker: string;
-    title: string;
-    status: string;
-    items: { label: string; value: string }[];
-    note: string;
-  };
 }
